@@ -1,0 +1,12 @@
+clc
+clear all
+
+A = zeros(100, 100);
+for i=1:100
+    for j =1:100
+        A(i,j) = (1+i+j)/(1+abs(i-j));
+    end
+end
+
+[V, D] = eigs(A, 1, 100);
+norm(V, 1)

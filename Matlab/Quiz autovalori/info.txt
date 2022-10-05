@@ -1,0 +1,13 @@
+QR -> trovi tutti gli autovalori
+Potenze -> trovi raggio spettrale
+Potenze_inverse -> trovi autovalore più vicino all'input
+
+SVD usi:
+1- rango posizione n-esima dell'ultimo elemento diverso da 0
+2- condizionamento s1/sn
+3- risolvere sistemi lineare 
+	USV'X = b 			(V'X) = y
+	Sy = bU' -> y = S\bU'
+	X = Vy
+4 Matrice simile di rango minore sommatore(s(i)*u(i)*v(i)')
+5 S contiene valori singolari(distanza)

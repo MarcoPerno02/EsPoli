@@ -1,0 +1,1 @@
+clcclear alln = 100;A = zeros(n, n);for i=1:n    for j=1:n        A(i,j) = i*max([i, j]);    endend[L, U, P] = lu(A);A_inv_lu = inv(U)*inv(L)*P;A_inv = inv(A);err_rel = norm(abs(A_inv_lu-A_inv), "inf")/norm(A_inv, "inf")

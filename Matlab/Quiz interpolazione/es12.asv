@@ -1,0 +1,10 @@
+clc
+clear all
+
+
+f = @(x) x.^3.*cos(x);
+fd = @(x) 3.*x.^2*cos(x)-x.^2*sin(x);
+fd1 
+x = linspace(0, 1, 25);
+y = f(x);
+g = diff(f, x);

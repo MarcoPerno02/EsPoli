@@ -1,0 +1,4 @@
+Marco;  conferenza; 90.50;2021-12-2
+Luca;cena;80.50  ;2021-12-2
+Antonio; colazione;88;2021-12-2
+diego;colazione;90.50;2021-12-2

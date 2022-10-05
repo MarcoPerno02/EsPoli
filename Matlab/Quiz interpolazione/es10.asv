@@ -1,0 +1,4 @@
+clc
+clear all
+linspace(-1,1, 100);
+f = @(x)
