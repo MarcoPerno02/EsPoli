@@ -10,8 +10,10 @@ int checkEndEspression(char car)
         return 0;
 }
 
-char *cercaRegexp(char *src, char *regexp, int len_regexp, int len_src)
+char *cercaRegexp(char *src, char *regexp)
 {
+    int len_regexp = strlen(regexp);
+    int len_src = strlen(src);
     int idx_src = 0;
     int idx_regexp = 0;
     char *last_regex_found = NULL;
@@ -125,7 +127,7 @@ int main()
     char * found = NULL;
     int i = 0;
     do {
-        found = cercaRegexp(src+i, regexp, len_regexp, len_src-i);
+        found = cercaRegexp(src+i, regexp);
         i++;
     } while(found == 0 && i < strlen(src));
     if(found != NULL)
