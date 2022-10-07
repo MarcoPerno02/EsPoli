@@ -10,57 +10,31 @@ int checkEndEspression(char car)
         return 0;
 }
 
-int findSubstringAtTheEnd(char *src, char *regexp, int *idx, char *last_regex_found)
-{
-    int j = 0;
-    char str_to_search[10 + 1] = "";
-    while (checkEndEspression(regexp[*idx]) == 0)
-    {
-        str_to_search[j] = regexp[*idx];
-        j++;
-        *idx += 1;
-    }
-    str_to_search[j] = '\0';
-    char *pch = strstr(src, str_to_search);
-    if (*(pch + j) != '\0')
-    {
-
-        printf("Not verified\n");
-        return 0;
-    }
-    else
-    {
-        printf("Verified\n");
-        last_regex_found = pch;
-        return 1;
-    }
-}
-
 char *cercaRegexp(char *src, char *regexp, int len_regexp, int len_src)
 {
     int idx_src = 0;
-    int i = 0;
+    int idx_regexp = 0;
     char *last_regex_found = NULL;
     int regex_valid = 1;
-    while (i < len_regexp && regex_valid == 1 && idx_src < len_src)
+    while (idx_regexp < len_regexp && regex_valid == 1 && idx_src < len_src)
     {
-        if (regexp[i] == '.')
+        if (regexp[idx_regexp] == '.')
         {
             printf("Point found\n");
         }
-        else if (regexp[i] == '[')
+        else if (regexp[idx_regexp] == '[')
         {
-            i++;
-            if (regexp[i] == '^')
+            idx_regexp++;
+            if (regexp[idx_regexp] == '^')
             {
                 printf("[^ found\n");
-                i++;
+                idx_regexp++;
                 char *car_found = NULL;
-                while (checkEndEspression(regexp[i]) == 0 && car_found == NULL)
+                while (checkEndEspression(regexp[idx_regexp]) == 0 && car_found == NULL)
                 {
-                    if (src[idx_src] == regexp[i])
+                    if (src[idx_src] == regexp[idx_regexp])
                         car_found = &src[idx_src];
-                    i++;
+                    idx_regexp++;
                 }
                 if (car_found == NULL)
                 {
@@ -76,18 +50,18 @@ char *cercaRegexp(char *src, char *regexp, int len_regexp, int len_src)
             {
                 printf("[ found\n");
                 char *car_found = NULL;
-                while (checkEndEspression(regexp[i]) == 0 && car_found == NULL)
+                while (checkEndEspression(regexp[idx_regexp]) == 0 && car_found == NULL)
                 {
-                    if (src[idx_src] == regexp[i])
+                    if (src[idx_src] == regexp[idx_regexp])
                         car_found = &src[idx_src];
-                    i++;
+                    idx_regexp++;
                 }
                 if (car_found != NULL)
                 {
                     printf("Verified\n");
-                    while (checkEndEspression(regexp[i]) == 0)
+                    while (checkEndEspression(regexp[idx_regexp]) == 0)
                     {
-                        i++;
+                        idx_regexp++;
                     }
                 }
                 else
@@ -97,10 +71,10 @@ char *cercaRegexp(char *src, char *regexp, int len_regexp, int len_src)
                 }
             }
         }
-        else if (regexp[i] == '\\')
+        else if (regexp[idx_regexp] == '\\')
         {
-            i++;
-            if (regexp[i] == 'A')
+            idx_regexp++;
+            if (regexp[idx_regexp] == 'A')
             {
                 printf("\\A found\n");
                 if (src[idx_src] >= 65 && src[idx_src] <= 90)
@@ -118,7 +92,7 @@ char *cercaRegexp(char *src, char *regexp, int len_regexp, int len_src)
                 printf("\\a found\n");
                 if (src[idx_src] >= 97 && src[idx_src] <= 122)
                 {
-                    i++;
+                    idx_regexp++;
                     printf("Verified/n");
                 }
                 else
@@ -130,13 +104,13 @@ char *cercaRegexp(char *src, char *regexp, int len_regexp, int len_src)
         }
         else
         {
-            if (src[idx_src] != regexp[i])
+            if (src[idx_src] != regexp[idx_regexp])
                 regex_valid = 0;
         }
         idx_src++;
-        i++;
+        idx_regexp++;
     }
-    if (regex_valid == 1 && i == len_regexp)
+    if (regex_valid == 1 && idx_regexp == len_regexp)
         return src;
     else
         return NULL;
@@ -144,8 +118,8 @@ char *cercaRegexp(char *src, char *regexp, int len_regexp, int len_src)
 
 int main()
 {
-    char *src = "ciao mSoto";
-    char regexp[30] = ".\\A[mo][^s]o";
+    char *src = "ciao mSo5t3 aaaaa";
+    char regexp[30] = "\\A[aeiou]5t[123]";
     int len_regexp = strlen(regexp);
     int len_src = strlen(src);
     char * found = NULL;
@@ -154,6 +128,7 @@ int main()
         found = cercaRegexp(src+i, regexp, len_regexp, len_src-i);
         i++;
     } while(found == 0 && i < strlen(src));
-    printf("%c", found);
+    if(found != NULL)
+        printf("Occorenza trovata. ");
     return 0;
 }
