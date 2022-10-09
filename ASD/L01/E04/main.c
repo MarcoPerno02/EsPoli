@@ -6,7 +6,7 @@
 
 typedef enum {
     r_stampa, r_ordinamento_data, r_ordinamento_codice_tratta,
-    r_ordinamento_stazione_partenza, r_ordinamento_stazione_arrivo
+    r_ordinamento_stazione_partenza, r_ordinamento_stazione_arrivo, r_ricerca_dicotomica, r_ricerca_lineare
 } t_comandi;
 
 typedef struct
@@ -31,7 +31,7 @@ void InsertionSortDate(Tratta tratte[], int N, Tratta * tratteInsertionSortDate[
 void InsertionSortCodiceTratta(Tratta tratte[], int N, Tratta * tratteInsertionSortCodiceTratta[]);
 void InsertionSortPartenza(Tratta tratte[], int N, Tratta * tratteInsertionSortPartenza[]);
 void InsertionSortCapolinea(Tratta tratte[], int N, Tratta* tratteInsertionSortStazioneArrivo[]);
-char * ricercaTrattaDicotomica(Tratta tratte[], int l, int r, char k[]);
+char * ricercaTrattaDicotomica(Tratta * tratte[], int l, int r, char k[]);
 void ricercaLineare(Tratta tratte[], int N, char * k);
 
 int main()
@@ -81,12 +81,24 @@ int main()
                     stampaTratta(*tratteInsertionSortStazioneArrivo[i]);
                 }
                 break;
+            case r_ricerca_dicotomica:
+                char filter[30+1];
+                scanf("%s", filter);
+                toLower(filter);
+                InsertionSortPartenza(tratte, nTratte, tratteInsertionSortStazionePartenza);
+                printf("%s\n", ricercaTrattaDicotomica(tratteInsertionSortStazionePartenza, 0, nTratte-1, filter));
+                break;
+            case r_ricerca_lineare:
+                char filter2[30+1];
+                scanf("%s", filter2);
+                ricercaLineare(tratte, nTratte, filter2);
+                break;
             default:
                 break;
         }
         pulisciBufferTastiera();
         //scanf("%*[^\n]%*1[\n]");
-    }while(comando != 5);
+    }while(comando != 7);
 
     fclose(fLog);
     return 0;
@@ -103,20 +115,20 @@ t_comandi leggiComando (void) {
     t_comandi c;
     c = 0;
     char cmd[50];
-    char tabella[50][30] = {"stampa", "ordinamento_data", "ordinamento_codice_tratta", "ordinamento_stazione_partenza", "ordinamento_stazione_arrivo", "fine"};
+    char tabella[50][30] = {"stampa", "ordinamento_data", "ordinamento_codice_tratta", "ordinamento_stazione_partenza", "ordinamento_stazione_arrivo", "ricerca_dicotomica", "ricerca_lineare", "fine"};
     do {
-        printf("Digitare uno dei seguenti comandi:\n\t- stampa\n\t- ordinamento_data\n\t- ordinamento_codice_tratta \n\t- ordinamento_stazione_partenza \n\t- ordinamento_stazione_arrivo \n\t- fine\nScelta: ");
+        printf("Digitare uno dei seguenti comandi:\n\t- stampa\n\t- ordinamento_data\n\t- ordinamento_codice_tratta \n\t- ordinamento_stazione_partenza \n\t- ordinamento_stazione_arrivo \n\t- ricerca_dicotomica <ricerca>\n\t- ricerca_lineare <ricerca>\n\t- fine\nScelta: ");
         scanf("%s",cmd);
         for(int i = 0; cmd[i]; i++){
             cmd[i] = tolower(cmd[i]);
         }
-        while(c<6 && strcmp(cmd,tabella[c])!=0)
+        while(c<8 && strcmp(cmd,tabella[c])!=0)
             c++;
-        if(c == 6) {
+        if(c == 8) {
             printf("Comando errato.\n");
             pulisciBufferTastiera();
         }
-    }while(c==6);
+    }while(c==8);
     return (c);
 }
 
@@ -215,4 +227,56 @@ void InsertionSortCapolinea(Tratta tratte[], int N, Tratta* tratteInsertionSortS
         tratte[j + 1] = x;
     }
     caricaVetPuntatori(tratteInsertionSortStazioneArrivo, tratte, N);
+}
+
+char * ricercaTrattaDicotomica(Tratta * tratte[], int l, int r, char k[]) {
+    int m;
+    if (l > r)
+        return NULL;
+    m = (l + r) / 2;
+    toLower(tratte[m]->partenza);
+    char * pointer = strstr(tratte[m]->partenza, k);
+    if(pointer == tratte[m]->partenza) {
+        stampaTratta(*tratte[m]);
+        // Find other occurences left side
+        int cont = 1, found = 1;
+        while(m-cont >= l && found == 1) {
+            toLower(tratte[m-cont]->partenza);
+            char * pointer2 = strstr(tratte[m-cont]->partenza, k);
+            if(pointer2 == tratte[m-cont]->partenza) {
+                stampaTratta(*tratte[m-cont]);
+                cont++;
+            }
+            else {
+                found = 0;
+            }
+        }
+        // Find other occurences right side
+        cont = 1, found = 1;
+        while(m+cont <= r && found == 1) {
+            toLower(tratte[m+cont]->partenza);
+            char * pointer2 = strstr(tratte[m+cont]->partenza, k);
+            if(pointer2 == tratte[m+cont]->partenza) {
+                stampaTratta(*tratte[m+cont]);
+                cont++;
+            }
+            else {
+                found = 0;
+            }
+        }
+        return("OK");
+    }
+    int ris = strcmp(k, tratte[m]->partenza);
+    if (ris < 0)
+        return ricercaTrattaDicotomica(tratte, l, m - 1, k);
+    return ricercaTrattaDicotomica(tratte, m + 1, r, k);
+}
+
+void ricercaLineare(Tratta tratte[], int N, char * k) {
+    for(int i = 0; i < N; i++) {
+        char * pointer = strstr(tratte[i].partenza, k);
+        if(pointer == tratte[i].partenza) {
+            stampaTratta(tratte[i]);
+        }
+    }
 }
