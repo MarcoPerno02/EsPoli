@@ -10,17 +10,22 @@ int main() {
     printf("Inserisci b: ");
     scanf("%d", &b);
     
+    printf("%d", gcd(a, b));
+}
+
+int gcd(int a, int b)
+{   
     if(b > a)
     {
         int aus = a;
         a = b;
         b = aus;   
     }
-    printf("%d", gcd(a, b));
-}
+    if(a == b)
+        return a;
+    else if(a == 1 || b == 1) 
+        return 1;
 
-int gcd(int a, int b)
-{   
     if(a == 0 || b == 0) {
         return 1;
     }  
@@ -36,6 +41,11 @@ int gcd(int a, int b)
     {
         return gcd(a, b/2);
     }
+    else if(a % 2 == 0 && b % 2 != 0)
+    {
+        return gcd(a/2, b);
+    }
+    printf("Errore");/*
     else
     {
         int resto;
@@ -45,5 +55,5 @@ int gcd(int a, int b)
             b = resto;
         }
         return a;
-    }
+    }*/
 }
