@@ -21,6 +21,7 @@ int main()
             dimBianco++;
         vetBianco = (int *) malloc(dimBianco*sizeof(int));
         vetNero = (int *) malloc(dimNero*sizeof(int));
+        if(vetBianco == NULL || vetNero == NULL) exit(1);
         separa(mat, nr, nc, &vetBianco, &vetNero);
         printf("Vet bianco:\n");
         for(int i = 0; i < dimBianco; i++) {
@@ -47,8 +48,10 @@ void malloc2dP(int*** mat)
         fscanf(fMat, "%d %d", &nr, &nc);
         int **righe;
         righe = (int **)malloc(nr*sizeof(int *));
+        if(righe == NULL) exit(1);
         for(int i = 0; i < nr; i++) {
             righe[i] = (int *)malloc(nc*sizeof(int));
+            if(righe[i] == NULL) exit(1);
             for(int j = 0; j < nc; j++) {
                 int cella;
                 fscanf(fMat, "%d", &cella);

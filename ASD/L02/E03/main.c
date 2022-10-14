@@ -6,7 +6,7 @@
 
 typedef enum {
     r_stampa, r_ordinamento_data, r_ordinamento_codice_tratta,
-    r_ordinamento_stazione_partenza, r_ordinamento_stazione_arrivo, r_ricerca_dicotomica, r_ricerca_lineare
+    r_ordinamento_stazione_partenza, r_ordinamento_stazione_arrivo, r_ricerca_dicotomica, r_ricerca_lineare, r_carica
 } t_comandi;
 
 typedef struct
@@ -89,12 +89,16 @@ int main()
                 scanf("%s", filter2);
                 ricercaLineare(tratte, nTratte, filter2);
                 break;
+            case r_carica:
+                free(tratte);
+                free(tratteInsertionSorts);
+                caricaTratte(&tratte, &tratteInsertionSorts);
             default:
                 break;
         }
         pulisciBufferTastiera();
         //scanf("%*[^\n]%*1[\n]");
-    }while(comando != 7);
+    }while(comando != 8);
     fclose(fLog);
     return 0;
 }
@@ -110,26 +114,30 @@ t_comandi leggiComando (void) {
     t_comandi c;
     c = 0;
     char cmd[50];
-    char tabella[50][30] = {"stampa", "ordinamento_data", "ordinamento_codice_tratta", "ordinamento_stazione_partenza", "ordinamento_stazione_arrivo", "ricerca_dicotomica", "ricerca_lineare", "fine"};
+    char tabella[50][30] = {"stampa", "ordinamento_data", "ordinamento_codice_tratta", "ordinamento_stazione_partenza", "ordinamento_stazione_arrivo", "ricerca_dicotomica", "ricerca_lineare", "carica_tratte", "fine"};
     do {
-        printf("Digitare uno dei seguenti comandi:\n\t- stampa\n\t- ordinamento_data\n\t- ordinamento_codice_tratta \n\t- ordinamento_stazione_partenza \n\t- ordinamento_stazione_arrivo \n\t- ricerca_dicotomica <ricerca>\n\t- ricerca_lineare <ricerca>\n\t- fine\nScelta: ");
+        printf("Digitare uno dei seguenti comandi:\n\t- stampa\n\t- ordinamento_data\n\t- ordinamento_codice_tratta \n\t- ordinamento_stazione_partenza \n\t- ordinamento_stazione_arrivo \n\t- ricerca_dicotomica <ricerca>\n\t- ricerca_lineare <ricerca>\n\t- carica_tratte\n\t- fine\nScelta: ");
         scanf("%s",cmd);
         for(int i = 0; cmd[i]; i++){
             cmd[i] = tolower(cmd[i]);
         }
-        while(c<8 && strcmp(cmd,tabella[c])!=0)
+        while(c<9 && strcmp(cmd,tabella[c])!=0)
             c++;
-        if(c == 8) {
+        if(c == 9) {
             printf("Comando errato.\n");
             pulisciBufferTastiera();
         }
-    }while(c==8);
+    }while(c==9);
     return (c);
 }
 
 void caricaTratte(Tratta **tratte, Tratta *** tratteInsertionSorts) {
     FILE *fLog;
-    if((fLog = fopen("corse.txt", "r")) == NULL) {
+    char file_name[50];
+    printf("Inserisci nome file (default corse.txt): ");
+    scanf("%s", file_name);
+
+    if((fLog = fopen(file_name, "r")) == NULL) {
         printf("Errore nell'aprire il file corse.txt\n");
     }
     else {
@@ -139,10 +147,11 @@ void caricaTratte(Tratta **tratte, Tratta *** tratteInsertionSorts) {
         fscanf(fLog, "%d", &nTratte);
         Tratta *righe;
         righe = malloc(nTratte*sizeof(Tratta));
-
+        if(righe == NULL) exit(1);
         *tratteInsertionSorts = (Tratta **) malloc(4*sizeof(Tratta *));
         for(int i = 0; i < 4; i++) {
             (*tratteInsertionSorts)[i] = (Tratta *) malloc(nTratte * sizeof(Tratta));
+            if((*tratteInsertionSorts)[i] == NULL) exit(1);
         }
 
         for(int i = 0; i < nTratte; i++) {
@@ -150,8 +159,10 @@ void caricaTratte(Tratta **tratte, Tratta *** tratteInsertionSorts) {
             char capolinea[30+1];
             fscanf(fLog, "%s %s %s %s %s %s %d ", righe[i].codiceTratta, partenza, capolinea, righe[i].date, righe[i].oraPartenza, righe[i].oraArrivo, &righe[i].ritardo);
             righe[i].partenza = malloc((strlen(partenza)+1)*sizeof(char));
+            if(righe[i].partenza == NULL) exit(1);
             strcpy(righe[i].partenza, partenza);
             righe[i].capolinea = malloc((strlen(capolinea)+1)*sizeof(char));
+            if(righe[i].capolinea == NULL) exit(1);
             strcpy(righe[i].capolinea, capolinea);
         }
         *tratte = righe;
