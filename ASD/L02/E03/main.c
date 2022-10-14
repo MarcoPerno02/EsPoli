@@ -12,8 +12,8 @@ typedef enum {
 typedef struct
 {
     char codiceTratta[30+1];
-    char partenza[30+1];
-    char capolinea[30+1];
+    char *partenza;
+    char *capolinea;
     char date[10+1];
     char oraPartenza[9+1];
     char oraArrivo[9+1];
@@ -23,7 +23,7 @@ typedef struct
 
 void pulisciBufferTastiera(void);
 t_comandi leggiComando (void);
-void caricaTratte(Tratta tratte[], FILE *fLog, int nTratte);
+void caricaTratte(Tratta ** tratte, Tratta *** tratteInsertionSorts);
 void toLower(char str[]);
 void stampaTratta(Tratta tratta);
 void caricaVetPuntatori(Tratta * trattePunt[], Tratta tratte[], int N);
@@ -39,16 +39,13 @@ int main()
     FILE *fLog;
     t_comandi comando;
 
-    if((fLog = fopen("corse.txt", "r")) == NULL) {
-        printf("Errore nell'aprire il file corse.txt\n");
-        return 1;
+    Tratta *tratte;
+    int nTratte = 6;
+    Tratta ** tratteInsertionSorts;
+    caricaTratte(&tratte, &tratteInsertionSorts);
+    for(int i = 0; i < nTratte; i++) {
+        stampaTratta(tratte[i]);
     }
-    int aus;
-    const int nTratte = fscanf(fLog, "%d ", &aus) * aus;
-    Tratta tratte[nTratte];
-    Tratta * tratteInsertionSortDate[nTratte], * tratteInsertionSortCodiceTratta[nTratte], * tratteInsertionSortStazionePartenza[nTratte], * tratteInsertionSortStazioneArrivo[nTratte];
-    caricaTratte(tratte, fLog, nTratte);
-
     do {
         comando = leggiComando();
         switch(comando) {
@@ -58,34 +55,34 @@ int main()
                 }
                 break;
             case r_ordinamento_data:
-                InsertionSortDate(tratte, nTratte, tratteInsertionSortDate);
+                InsertionSortDate(tratte, nTratte, &tratteInsertionSorts[0]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortDate[i]);
+                    stampaTratta(tratteInsertionSorts[0][i]);
                 }
                 break;
             case r_ordinamento_codice_tratta:
-                InsertionSortCodiceTratta(tratte, nTratte, tratteInsertionSortCodiceTratta);
+                InsertionSortCodiceTratta(tratte, nTratte, &tratteInsertionSorts[1]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortCodiceTratta[i]);
+                    stampaTratta(tratteInsertionSorts[1][i]);
                 }
                 break;
             case r_ordinamento_stazione_partenza:
-                InsertionSortPartenza(tratte, nTratte, tratteInsertionSortStazionePartenza);
+                InsertionSortPartenza(tratte, nTratte, &tratteInsertionSorts[2]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortStazionePartenza[i]);
+                    stampaTratta(tratteInsertionSorts[2][i]);
                 }
                 break;
             case r_ordinamento_stazione_arrivo:
-                InsertionSortCapolinea(tratte, nTratte, tratteInsertionSortStazioneArrivo);
+                InsertionSortCapolinea(tratte, nTratte, &tratteInsertionSorts[3]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortStazioneArrivo[i]);
+                    stampaTratta(tratteInsertionSorts[3][i]);
                 }
                 break;
             case r_ricerca_dicotomica:
                 char filter[30+1];
                 scanf("%s", filter);
-                InsertionSortPartenza(tratte, nTratte, tratteInsertionSortStazionePartenza);
-                printf("%s\n", ricercaTrattaDicotomica(tratteInsertionSortStazionePartenza, 0, nTratte-1, filter));
+                InsertionSortPartenza(tratte, nTratte, &tratteInsertionSorts[2]);
+                printf("%s\n", ricercaTrattaDicotomica(&tratteInsertionSorts[2], 0, nTratte-1, filter));
                 break;
             case r_ricerca_lineare:
                 char filter2[30+1];
@@ -98,7 +95,6 @@ int main()
         pulisciBufferTastiera();
         //scanf("%*[^\n]%*1[\n]");
     }while(comando != 7);
-
     fclose(fLog);
     return 0;
 }
@@ -131,11 +127,34 @@ t_comandi leggiComando (void) {
     return (c);
 }
 
-void caricaTratte(Tratta tratte[], FILE *fLog, int nTratte) {
-    char data[30];
-    int ritardo;
-    for(int i = 0; i < nTratte; i++) {
-        fscanf(fLog, "%s %s %s %s %s %s %d ", tratte[i].codiceTratta, tratte[i].partenza, tratte[i].capolinea, tratte[i].date, tratte[i].oraPartenza, tratte[i].oraArrivo, &tratte[i].ritardo);
+void caricaTratte(Tratta **tratte, Tratta *** tratteInsertionSorts) {
+    FILE *fLog;
+    if((fLog = fopen("corse.txt", "r")) == NULL) {
+        printf("Errore nell'aprire il file corse.txt\n");
+    }
+    else {
+        char data[30];
+        int ritardo;
+        int nTratte;
+        fscanf(fLog, "%d", &nTratte);
+        Tratta *righe;
+        righe = malloc(nTratte*sizeof(Tratta));
+
+        *tratteInsertionSorts = (Tratta **) malloc(4*sizeof(Tratta *));
+        for(int i = 0; i < 4; i++) {
+            (*tratteInsertionSorts)[i] = (Tratta *) malloc(nTratte * sizeof(Tratta));
+        }
+
+        for(int i = 0; i < nTratte; i++) {
+            char partenza[30+1];
+            char capolinea[30+1];
+            fscanf(fLog, "%s %s %s %s %s %s %d ", righe[i].codiceTratta, partenza, capolinea, righe[i].date, righe[i].oraPartenza, righe[i].oraArrivo, &righe[i].ritardo);
+            righe[i].partenza = malloc((strlen(partenza)+1)*sizeof(char));
+            strcpy(righe[i].partenza, partenza);
+            righe[i].capolinea = malloc((strlen(capolinea)+1)*sizeof(char));
+            strcpy(righe[i].capolinea, capolinea);
+        }
+        *tratte = righe;
     }
 }
 
