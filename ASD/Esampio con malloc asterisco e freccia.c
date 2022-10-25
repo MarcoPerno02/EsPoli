@@ -8,7 +8,12 @@ typedef struct
 } Song;
 
 typedef struct {
+    int * test;
+} StructTest;
+
+typedef struct {
     int songsNum;
+    StructTest * structTest;
     Song * songs;
 } Friend;
 
@@ -57,6 +62,11 @@ void loadSongs(FILE *fin, Friend ** friends, int * friendsNum) {
         for(int j = 0; j < songsNum; j++) {
             fscanf(fin, "%s", &(*friends)[i].songs[j].name);
         }
+        int a = 10;
+        StructTest b;
+        b.test = &a;
+        (*friends)[i].structTest = &b;
+        printf("%d", *((*friends)[i].structTest->test));
     }
     fclose(fin);
 }
