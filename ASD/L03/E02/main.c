@@ -38,6 +38,8 @@ int main() {
     combination = (Song *) malloc(friendsNum * sizeof(Song));
     if(combination == NULL) exit(1);
     printCombinations(&friends, combination, 0, 0, friendsNum, &combinationsNum);
+    free(friends);
+    free(combination);
 }
 
 void loadSongs(FILE *fin, Friend ** friends, int * friendsNum) {
@@ -82,3 +84,4 @@ void printCombinations(Friend ** friends, Song * combination, int friendIndex, i
         }
     }
 }
+

@@ -14,6 +14,7 @@ int main(void) {
 	else 
         printf("Il vettore non ha elemento maggioritario.");
 
+	free(m);
 	return 0;
 }
 
