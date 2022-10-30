@@ -45,15 +45,5 @@ int gcd(int a, int b)
     {
         return gcd(a/2, b);
     }
-    printf("Errore");/*
-    else
-    {
-        int resto;
-        while (b > 0)	{
-            resto = a % b;
-            a = b;
-            b = resto;
-        }
-        return a;
-    }*/
+    printf("Errore");
 }

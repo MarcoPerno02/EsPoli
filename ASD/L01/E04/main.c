@@ -46,7 +46,10 @@ int main()
     int aus;
     const int nTratte = fscanf(fLog, "%d ", &aus) * aus;
     Tratta tratte[nTratte];
-    Tratta * tratteInsertionSortDate[nTratte], * tratteInsertionSortCodiceTratta[nTratte], * tratteInsertionSortStazionePartenza[nTratte], * tratteInsertionSortStazioneArrivo[nTratte];
+    Tratta * tratteInsertionSorts[4][nTratte];
+    for(int i = 0; i < 4; i++) {
+        tratteInsertionSorts[i][0] = NULL;
+    }
     caricaTratte(tratte, fLog, nTratte);
 
     do {
@@ -58,34 +61,39 @@ int main()
                 }
                 break;
             case r_ordinamento_data:
-                InsertionSortDate(tratte, nTratte, tratteInsertionSortDate);
+                if(tratteInsertionSorts[0][0] == NULL) 
+                    InsertionSortDate(tratte, nTratte, tratteInsertionSorts[0]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortDate[i]);
+                    stampaTratta(*(tratteInsertionSorts[0])[i]);
                 }
                 break;
             case r_ordinamento_codice_tratta:
-                InsertionSortCodiceTratta(tratte, nTratte, tratteInsertionSortCodiceTratta);
+                if(tratteInsertionSorts[1][0] == NULL) 
+                    InsertionSortCodiceTratta(tratte, nTratte, tratteInsertionSorts[1]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortCodiceTratta[i]);
+                    stampaTratta(*(tratteInsertionSorts[1])[i]);
                 }
                 break;
             case r_ordinamento_stazione_partenza:
-                InsertionSortPartenza(tratte, nTratte, tratteInsertionSortStazionePartenza);
+                if(tratteInsertionSorts[2][0] == NULL) 
+                    InsertionSortPartenza(tratte, nTratte, tratteInsertionSorts[2]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortStazionePartenza[i]);
+                    stampaTratta(*(tratteInsertionSorts[2])[i]);
                 }
                 break;
             case r_ordinamento_stazione_arrivo:
-                InsertionSortCapolinea(tratte, nTratte, tratteInsertionSortStazioneArrivo);
+                if(tratteInsertionSorts[3][0] == NULL) 
+                    InsertionSortCapolinea(tratte, nTratte, tratteInsertionSorts[3]);
                 for(int i = 0; i < nTratte; i++) {
-                    stampaTratta(*tratteInsertionSortStazioneArrivo[i]);
+                    stampaTratta(*(tratteInsertionSorts[3])[i]);
                 }
                 break;
             case r_ricerca_dicotomica:
                 char filter[30+1];
                 scanf("%s", filter);
-                InsertionSortPartenza(tratte, nTratte, tratteInsertionSortStazionePartenza);
-                printf("%s\n", ricercaTrattaDicotomica(tratteInsertionSortStazionePartenza, 0, nTratte-1, filter));
+                if(tratteInsertionSorts[2][0] == NULL) 
+                    InsertionSortPartenza(tratte, nTratte, tratteInsertionSorts[2]);
+                printf("%s\n", ricercaTrattaDicotomica(tratteInsertionSorts[2], 0, nTratte-1, filter));
                 break;
             case r_ricerca_lineare:
                 char filter2[30+1];
@@ -116,6 +124,7 @@ t_comandi leggiComando (void) {
     char cmd[50];
     char tabella[50][30] = {"stampa", "ordinamento_data", "ordinamento_codice_tratta", "ordinamento_stazione_partenza", "ordinamento_stazione_arrivo", "ricerca_dicotomica", "ricerca_lineare", "fine"};
     do {
+        c = 0;
         printf("Digitare uno dei seguenti comandi:\n\t- stampa\n\t- ordinamento_data\n\t- ordinamento_codice_tratta \n\t- ordinamento_stazione_partenza \n\t- ordinamento_stazione_arrivo \n\t- ricerca_dicotomica <ricerca>\n\t- ricerca_lineare <ricerca>\n\t- fine\nScelta: ");
         scanf("%s",cmd);
         for(int i = 0; cmd[i]; i++){

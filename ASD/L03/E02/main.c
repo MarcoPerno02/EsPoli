@@ -26,18 +26,14 @@ int main() {
     int friendsNum;
     loadSongs(fin, &friends, &friendsNum);
 
-    /*
-    for(int i = 0; i < friendsNum; i++) {
-        for(int j = 0; j < friends[i].songsNum; j++) {
-            printf("%s\n", friends[i].songs[j].name);
-        }
-    }
-    */
     int combinationsNum = 0;
     Song * combination;
     combination = (Song *) malloc(friendsNum * sizeof(Song));
     if(combination == NULL) exit(1);
     printCombinations(&friends, combination, 0, 0, friendsNum, &combinationsNum);
+    for(int i = 0; i < friendsNum; i++) {
+        free(friends[i].songs);
+    }
     free(friends);
     free(combination);
 }

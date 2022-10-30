@@ -94,8 +94,7 @@ char *cercaRegexp(char *src, char *regexp)
                 printf("\\a found\n");
                 if (src[idx_src] >= 97 && src[idx_src] <= 122)
                 {
-                    idx_regexp++;
-                    printf("Verified/n");
+                    printf("Verified\n");
                 }
                 else
                 {
@@ -108,6 +107,8 @@ char *cercaRegexp(char *src, char *regexp)
         {
             if (src[idx_src] != regexp[idx_regexp])
                 regex_valid = 0;
+            else
+                printf("Character found\n");
         }
         idx_src++;
         idx_regexp++;
@@ -120,8 +121,8 @@ char *cercaRegexp(char *src, char *regexp)
 
 int main()
 {
-    char *src = "ciao mSo5t3 aaaaa";
-    char regexp[30] = "\\A[aeiou]5t[123]";
+    char *src = "ciao Ad5t1Raad aaaaaSo5t3g";
+    char regexp[30] = "\\A[aeiou]5t[123].";
     int len_regexp = strlen(regexp);
     int len_src = strlen(src);
     char * found = NULL;
@@ -129,8 +130,13 @@ int main()
     do {
         found = cercaRegexp(src+i, regexp);
         i++;
-    } while(found == 0 && i < strlen(src));
-    if(found != NULL)
+    } while(found == NULL && i < strlen(src));
+    if(found != NULL) {
         printf("Occorenza trovata. ");
+        printf("La prima occorrenza trovata inizia qui: %s", found);
+    }
+    else {
+        printf("Nessuna occorenza trovata. ");
+    }
     return 0;
 }

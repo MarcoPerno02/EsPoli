@@ -3,7 +3,8 @@
 
 
 void malloc2dP(int*** mat);
-void separa(int **mat, int nr, int nc, int **vetBianco, int **vetNero);
+void separa(int **mat, int nr, int nc, int *vetBianco, int *vetNero);
+void free2D(int** mat);
 
 int nr;
 int nc;
@@ -22,7 +23,7 @@ int main()
         vetBianco = (int *) malloc(dimBianco*sizeof(int));
         vetNero = (int *) malloc(dimNero*sizeof(int));
         if(vetBianco == NULL || vetNero == NULL) exit(1);
-        separa(mat, nr, nc, &vetBianco, &vetNero);
+        separa(mat, nr, nc, vetBianco, vetNero);
         printf("Vet bianco:\n");
         for(int i = 0; i < dimBianco; i++) {
             printf("%d ", vetBianco[i]);
@@ -32,7 +33,7 @@ int main()
         for(int i = 0; i < dimNero; i++) {
             printf("%d ", vetNero[i]);
         }
-        free(mat);
+        free2D(mat);
         free(vetBianco);
         free(vetNero);
     }
@@ -64,19 +65,29 @@ void malloc2dP(int*** mat)
     
 }
 
-void separa(int **mat, int nr, int nc, int **vetBianco, int **vetNero) 
+void separa(int **mat, int nr, int nc, int *vetBianco, int *vetNero) 
 {
     int contVetBianco = 0, contVetNero = 0;
     for(int i = 0; i < nr; i++) {
         for(int j = 0; j < nc; j++) {
             if((i+j) % 2 == 0) {
-                (*vetBianco)[contVetBianco] = mat[i][j];
+                vetBianco[contVetBianco] = mat[i][j];
                 contVetBianco++;
             }
             else {
-                (*vetNero)[contVetNero] = mat[i][j];
+                vetNero[contVetNero] = mat[i][j];
                 contVetNero++;
             }
         }
     }
+}
+
+void free2D(int **m)
+{
+    int i;
+    for (i = 0; i < nr; i++)
+    {
+        free(m[i]);
+    }
+    free(m);
 }

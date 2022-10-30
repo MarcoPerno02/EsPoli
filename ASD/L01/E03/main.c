@@ -114,6 +114,7 @@ t_comandi leggiComando (void) {
     char cmd[50];
     char tabella[50][30] = {"stampa", "ordinamento_data", "ordinamento_codice_tratta", "ordinamento_stazione_partenza", "ordinamento_stazione_arrivo", "ricerca_dicotomica", "ricerca_lineare", "fine"};
     do {
+        c = 0;
         printf("Digitare uno dei seguenti comandi:\n\t- stampa\n\t- ordinamento_data\n\t- ordinamento_codice_tratta \n\t- ordinamento_stazione_partenza \n\t- ordinamento_stazione_arrivo \n\t- ricerca_dicotomica <ricerca>\n\t- ricerca_lineare <ricerca>\n\t- fine\nScelta: ");
         scanf("%s",cmd);
         for(int i = 0; cmd[i]; i++){
