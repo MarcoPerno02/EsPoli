@@ -25,19 +25,20 @@ void initializeCombination(Stone * combination, int len);
 void printCombination(Stone * combination, int len);
 void decreaseCollection(Collection * collection, int stone_type);
 void increaseCollection(Collection * collection, int stone_type);
+void handleFinalCase(Stone * combination, int pos, Stone * best_combination, int * len_best_combination);
 
 int main() {
     Collection * collections;
     int n_set = loadCollection(&collections);
     for(int i = 0; i < n_set; i++) {
-        printf("Test1:\n");
+        printf("Test%d:\n", i);
         bestCombination(collections[i]);
     }
 }
 
 int loadCollection(Collection ** collections) {
     FILE * fin;
-    if((fin = fopen("easy_test_set.txt", "r")) == NULL) {
+    if((fin = fopen("hard_test_set.txt", "r")) == NULL) {
         printf("Errore apertura file");
         exit(-1);
     }
@@ -68,10 +69,27 @@ void bestCombination(Collection collection) {
         Stone combination[collection.tot];
         initializeCombination(combination, collection.tot);
         combination[0].type = i;
-        addStone(combination, i+1, collection.tot, &collection, best_combination, &len_best_combination);
-        printf("Len best combination: %d\n", len_best_combination);
-        printCombination(best_combination, len_best_combination);
+        if(i == 0)
+            collection.zaffiri--;
+        else if(i==1)
+            collection.rubini--;
+        else if(i==2)
+            collection.topazi--;
+        else
+            collection.smeraldi--;
+        addStone(combination, 1, collection.tot, &collection, best_combination, &len_best_combination);
+        if(i == 0)
+            collection.zaffiri++;
+        else if(i==1)
+            collection.rubini++;
+        else if(i==2)
+            collection.topazi++;
+        else
+            collection.smeraldi++;
+        
     }
+    printf("Len best combination: %d\n", len_best_combination);
+    printCombination(best_combination, len_best_combination);
 }
 
 int checkZaffiro(Collection collection, int last_stone) {
@@ -110,27 +128,75 @@ void addStone(Stone * combination, int pos, int len, Collection * collection, St
     choices[2] = checkTopazio(*collection, combination[pos-1].type);
     choices[3] = checkSmeraldo(*collection, combination[pos-1].type);
     int paths = 0;
+        
     for(int i = 0; i < 4; i++) {
-        if(choices[i] == 1) {
+        if(choices[i] == 1 && *len_best_combination != len) {
+            // Pruning section
             paths++;
-            combination[pos].type = i;
-            decreaseCollection(collection, i);
-            addStone(combination, pos+1, len, collection, best_combination, len_best_combination);
-            increaseCollection(collection, i);
-        }
-    }
-    if(paths == 0) {
-        // There werent possible choices to take --> Finale case
-        printCombination(combination, pos);
-        if(pos > *len_best_combination) {
-            for(int i = 0; i < pos; i++) {
-                best_combination[i] = combination[i];
+            if(collection->topazi == 0 && i == 3) {
+                // Case only smeraldi left and not topazi
+                if(pos + collection->smeraldi > *len_best_combination) {
+                    int pos_aus;
+                    for(pos_aus = pos; collection->smeraldi != 0; collection->smeraldi--, pos_aus++) {
+                        combination[pos_aus].type = i;
+                    }
+                    handleFinalCase(combination, pos_aus, best_combination, len_best_combination);
+                    for(; pos != pos_aus + 1 ; pos_aus--) {
+                        if(pos != pos_aus)
+                            collection->smeraldi++;
+                        combination[pos_aus].type = -1;
+                    }
+                }
             }
-            *len_best_combination = pos;
+            else if(collection->rubini == 0 && i == 0) {
+                // Case only zaffiri left and not rubini
+                if(pos + collection->zaffiri > *len_best_combination) {
+                    int pos_aus;
+                    for(pos_aus = pos; collection->zaffiri != 0; collection->zaffiri--, pos_aus++) {
+                        combination[pos_aus].type = i;
+                    }
+                    handleFinalCase(combination, pos_aus, best_combination, len_best_combination);
+                    for(; pos != pos_aus + 1 ; pos_aus--) {
+                        if(pos != pos_aus)
+                            collection->zaffiri++;
+                        combination[pos_aus].type = -1;
+                    }
+                }
+            }
+            else {
+                combination[pos].type = i;
+                decreaseCollection(collection, i);
+                addStone(combination, pos+1, len, collection, best_combination, len_best_combination);
+                increaseCollection(collection, i);
+            }
+            
         }
     }
-    // Release position
-    combination[pos-1].type = -1;
+    if(paths == 0 ) {
+        if(pos > *len_best_combination) {
+            // There werent possible choices to take --> Finale case
+            handleFinalCase(combination, pos, best_combination, len_best_combination);
+            // Release position
+            
+        }
+        else if(1!=1) {
+            printf("Scartato:\n");
+            printCombination(combination, pos);
+        }
+        combination[pos-1].type = -1;
+        
+    }
+    
+}
+
+void handleFinalCase(Stone * combination, int pos, Stone * best_combination, int * len_best_combination) {
+    printCombination(combination, pos);
+    if(pos > *len_best_combination) {
+        for(int i = 0; i < pos; i++) {
+            best_combination[i] = combination[i];
+        }
+        *len_best_combination = pos;
+    }
 }
 
 void printCombination(Stone * combination, int len) {
