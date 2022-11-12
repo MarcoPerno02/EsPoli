@@ -6,13 +6,12 @@ typedef struct {
     int value_row;
     char color_col;
     int value_col;
+    int conf_in;
 } Tile;
 
 void loadBoardAndTiles(Tile *** board, int * N_row, int * N_col, Tile ** collection_tiles, int * N_collection_tiles);
 void printBoard(Tile ** board, int N_row, int N_col);
-void comb_r_choose_tile(int pos, int *val, int *sol, int n, int k, int start, Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile *** board_max, int * score_max);
-int generateMark(int * vet, int N, int ** mark, int **vet_dist);
-void perm_r_position_tiles(int pos, int *dist_val, int *sol,int *mark, int n, int n_dist, Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile *** board_max, int * score_max);
+void perm_s_choose_tiles(int * val, int N, int * mark, int * sol, int pos, Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile *** board_max, int * score_max);
 void addTilesToBoard(Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile * tiles_to_add, int N_tiles_to_add, Tile *** board_max, int * score_max);
 void disp_rip_rotation(int pos,int *val,int *sol,int n,int k, Tile ** _board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile * tiles_to_add, int N_tiles_to_add, Tile *** board_max, int * score_max);
 void rotateTiles(Tile ** board, int N_row, int N_col, int * vet_rotation);
@@ -47,8 +46,12 @@ int main() {
     }
 
     int * sol;
-    sol = malloc(sizeof(int)*5);
-    comb_r_choose_tile(0, tilesId, sol, N_collection_tiles, 5, 0, board, N_row, N_col, collection_tiles, N_collection_tiles, &board_max, &score_max);
+    sol = malloc(sizeof(int)*N_collection_tiles);
+    int * mark = malloc(sizeof(int)*N_collection_tiles);
+    for(int i = 0; i < 9; i++){
+        mark[i] = 0;
+    }
+    perm_s_choose_tiles(tilesId, N_collection_tiles, mark, sol, 0, board, N_row, N_col, collection_tiles, N_collection_tiles, &board_max, &score_max);
     printBoard(board_max, N_row, N_col);
     printf("Score_max: %d\n", score_max);
     free2D(board_max, N_row);
@@ -71,9 +74,13 @@ void loadBoardAndTiles(Tile *** board, int * N_row, int * N_col, Tile ** collect
         exit(-1);
     }
     fscanf(fin_tiles, "%d\n", N_collection_tiles);
-    (*collection_tiles) = malloc(sizeof(Tile) * *N_collection_tiles);
+
+    Tile * tmp_collection_tiles = malloc(sizeof(Tile) * *N_collection_tiles);
+    int * collection_tiles_id_used = malloc(sizeof(int) * *N_collection_tiles);
+    int N_collection_tiles_id_used = 0;
+
     for(int i = 0; i < *N_collection_tiles; i++) {
-        fscanf(fin_tiles, "%c %d %c %d\n", &((*collection_tiles)[i].color_row), &((*collection_tiles)[i].value_row), &((*collection_tiles)[i].color_col), &((*collection_tiles)[i].value_col));
+        fscanf(fin_tiles, "%c %d %c %d\n", &(tmp_collection_tiles[i].color_row), &(tmp_collection_tiles[i].value_row), &(tmp_collection_tiles[i].color_col), &(tmp_collection_tiles[i].value_col));
     }
 
     fscanf(fin_board, "%d %d", N_row, N_col);
@@ -84,21 +91,25 @@ void loadBoardAndTiles(Tile *** board, int * N_row, int * N_col, Tile ** collect
             int id, rotation;
             fscanf(fin_board, "%d/%d", &id, &rotation);
             if(id != -1 && rotation != -1) {
+                (*board)[i][j].conf_in = 1;
+                collection_tiles_id_used[N_collection_tiles_id_used] = id;
+                N_collection_tiles_id_used++;
                 if(rotation == 1) {
                     // load with rotation
-                    (*board)[i][j].color_col = (*collection_tiles)[id].color_row;
-                    (*board)[i][j].value_col = (*collection_tiles)[id].value_row;
-                    (*board)[i][j].color_row = (*collection_tiles)[id].color_col;
-                    (*board)[i][j].value_row = (*collection_tiles)[id].value_col;
+                    (*board)[i][j].color_col = tmp_collection_tiles[id].color_row;
+                    (*board)[i][j].value_col = tmp_collection_tiles[id].value_row;
+                    (*board)[i][j].color_row = tmp_collection_tiles[id].color_col;
+                    (*board)[i][j].value_row = tmp_collection_tiles[id].value_col;
                 }
                 else {
-                    (*board)[i][j].color_col = (*collection_tiles)[id].color_col;
-                    (*board)[i][j].value_col = (*collection_tiles)[id].value_col;
-                    (*board)[i][j].color_row = (*collection_tiles)[id].color_row;
-                    (*board)[i][j].value_row = (*collection_tiles)[id].value_row;
+                    (*board)[i][j].color_col = tmp_collection_tiles[id].color_col;
+                    (*board)[i][j].value_col = tmp_collection_tiles[id].value_col;
+                    (*board)[i][j].color_row = tmp_collection_tiles[id].color_row;
+                    (*board)[i][j].value_row = tmp_collection_tiles[id].value_row;
                 }
             }
             else {
+                (*board)[i][j].conf_in = 0;
                 (*board)[i][j].color_col = ' ';
                 (*board)[i][j].value_col = -1;
                 (*board)[i][j].color_row = ' ';
@@ -106,6 +117,28 @@ void loadBoardAndTiles(Tile *** board, int * N_row, int * N_col, Tile ** collect
             }
         }
     }
+
+    // Update the tiles collection with only the tiles left
+    int N_collection_tiles_left = *N_collection_tiles - N_collection_tiles_id_used;
+    Tile * collection_tiles_left = malloc(sizeof(Tile) * N_collection_tiles_left);
+    int cnt = 0;
+    for(int i = 0; i < *N_collection_tiles; i++) {
+        int j = 0;
+        int found = 0;
+        while(j < N_collection_tiles_id_used && found == 0) {
+            if(collection_tiles_id_used[j] == i)
+                found = 1;
+            j++;
+        }
+        if(found == 0) {
+            collection_tiles_left[cnt] = tmp_collection_tiles[i];
+            cnt++;
+        }
+    }
+    *collection_tiles = collection_tiles_left;
+    *N_collection_tiles = N_collection_tiles_left;
+    free(tmp_collection_tiles);
+
     fclose(fin_board);
     fclose(fin_board);
 }
@@ -138,106 +171,41 @@ void printBoard(Tile ** board, int N_row, int N_col) {
     printf("\n");
 }
 
-void comb_r_choose_tile(int pos, int *val, int *sol, int n, int k, int start,  Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile *** board_max, int * score_max)
-{
-    // Generate the possible tiles 
-    int i, j;
-    if (pos >= k)
-    {
-        printf("Comb ripet:\n");
-        for (i = 0; i < k; i++)
+void perm_s_choose_tiles(int * val, int N, int * mark, int * sol, int pos, Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile *** board_max, int * score_max) {
+    // Generate the possible tiles and the order of how the will be insert in the board
+    if(pos >= N) {
+        for(int i = 0; i < N; i++) {
             printf("%d ", sol[i]);
+        }
         printf("\n");
-        int * mark;
-        int * dist_val;
-        int sol_perm[k];
-        //printf("Permutazioni ripet:\n");
-        int n_dist = generateMark(sol, k, &mark, &dist_val);
-        perm_r_position_tiles(0, dist_val, sol_perm, mark, k, n_dist, board, N_row, N_col, collection_tiles, N_collection_tiles, board_max, score_max);
-        //printf("\n");
-    }
-    else {
-        for (i=start; i<n; i++) {
-            sol[pos] = val[i];
-            comb_r_choose_tile(pos+1, val, sol, n, k, start, board, N_row, N_col, collection_tiles, N_collection_tiles, board_max, score_max);
-            start++;
-        }
-    }
-    
-}
-
-int generateMark(int * vet, int N, int ** mark, int **vet_dist) {
-    // Generate vet_dist and mark and returns their dimension
-    int idx_mark = 0;
-    int N_mark = 1;
-    (*mark) = malloc(sizeof(int) * N_mark);
-    (*vet_dist) = malloc(sizeof(int) * N_mark);
-    for(int i = 0; i < N; i++) {
-        int trovato = 0;
-        int j = i-1;
-        while(j >= 0 && trovato == 0) {
-            if(vet[j] == vet[i])
-                trovato = 1;
-            j--;
-        }
-        if(trovato == 0) {
-            int cont = 1;
-            for(int k = i+1; k < N;k++) {
-                if(vet[k] == vet[i])
-                    cont++;
-            }
-            if(idx_mark+1 == N_mark) {
-                N_mark = N_mark * 2;
-                (*mark) = realloc((*mark), N_mark*sizeof(int));
-                (*vet_dist) = realloc((*vet_dist), N_mark*sizeof(int));
-            }
-            (*mark)[idx_mark] = cont;
-            (*vet_dist)[idx_mark] = vet[i];
-            idx_mark++;
-        }
-    }
-    return idx_mark;
-}
-
-void perm_r_position_tiles(int pos, int *dist_val, int *sol, int *mark, int n, int n_dist, Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile *** board_max, int * score_max)
-{
-    // Generate how the tiles can be put on the board
-    int i;
-    if (pos >= n)
-    {
-        //for (i = 0; i < n; i++)
-        //    printf("%d ", sol[i]);
-        //printf("\n");
-        // Creating the array that will contain the tiles to add
-        Tile * tiles_to_add = malloc(n * sizeof(Tile));
-        for(int i = 0; i < n; i++) {
+        Tile * tiles_to_add = malloc(N * sizeof(Tile));
+        for(int i = 0; i < N; i++) {
             tiles_to_add[i] = collection_tiles[sol[i]];
         }
-        addTilesToBoard(board, N_row, N_col, collection_tiles, N_collection_tiles, tiles_to_add, n, board_max, score_max);
+        addTilesToBoard(board, N_row, N_col, collection_tiles, N_collection_tiles, tiles_to_add, N, board_max, score_max);
     }
     else {
-        for (i = 0; i < n_dist; i++)
-        {
-            if (mark[i] > 0)
-            {
-                mark[i]--;
-                sol[pos] = dist_val[i];
-                perm_r_position_tiles(pos + 1, dist_val, sol, mark, n, n_dist, board, N_row, N_col, collection_tiles, N_collection_tiles, board_max, score_max);
-                mark[i]++;
+        for(int i = 0; i < N; i++) {
+            if(mark[i] == 0) {
+                sol[pos] = val[i];
+                mark[i] = 1;
+                perm_s_choose_tiles(val, N, mark, sol, pos+1, board, N_row, N_col, collection_tiles, N_collection_tiles, board_max, score_max);
+                mark[i] = 0;
             }
+            
         }
     }
 }
 
 void addTilesToBoard(Tile ** board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile * tiles_to_add, int N_tiles_to_add, Tile *** board_max, int * score_max) {
     int val[2] = {0, 1};
-    int sol[N_col * N_row];
+    int sol[N_tiles_to_add];
     //printf("Disp rip:\n");
-    disp_rip_rotation(0, val, sol, 2, N_col * N_row, board, N_row, N_col, collection_tiles, N_collection_tiles, tiles_to_add, N_tiles_to_add, board_max, score_max);
+    disp_rip_rotation(0, val, sol, 2, N_tiles_to_add, board, N_row, N_col, collection_tiles, N_collection_tiles, tiles_to_add, N_tiles_to_add, board_max, score_max);
     //printf("\n");
 }
 
-void disp_rip_rotation(int pos,int *val,int *sol,int n,int k, Tile ** _board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile * tiles_to_add, int N_tiles_to_add, Tile *** board_max, int * score_max) {
+void disp_rip_rotation(int pos,int *val,int *sol, int n,int k, Tile ** _board, int N_row, int N_col, Tile * collection_tiles, int N_collection_tiles, Tile * tiles_to_add, int N_tiles_to_add, Tile *** board_max, int * score_max) {
     if(pos >= k) {
         //for(int i = 0; i < k; i++) {
         //    printf("%d ", sol[i]);
@@ -256,6 +224,7 @@ void disp_rip_rotation(int pos,int *val,int *sol,int n,int k, Tile ** _board, in
                     board[i][j].color_row = tiles_to_add[cnt].color_row;
                     board[i][j].value_col = tiles_to_add[cnt].value_col;
                     board[i][j].value_row = tiles_to_add[cnt].value_row;
+                    board[i][j].conf_in = 0;
                     cnt++;
                 }
                 else {
@@ -263,10 +232,11 @@ void disp_rip_rotation(int pos,int *val,int *sol,int n,int k, Tile ** _board, in
                     board[i][j].color_row = _board[i][j].color_row;
                     board[i][j].value_col = _board[i][j].value_col;
                     board[i][j].value_row = _board[i][j].value_row;
+                    board[i][j].conf_in = _board[i][j].conf_in;
                 }
             }
         }
-
+        //printBoard(board, N_row, N_col);
         rotateTiles(board, N_row, N_col, sol);
         //printBoard(board, N_row, N_col);
         int score = calculateScore(board, N_row, N_col, collection_tiles, N_collection_tiles);
@@ -293,16 +263,20 @@ void disp_rip_rotation(int pos,int *val,int *sol,int n,int k, Tile ** _board, in
 }
 
 void rotateTiles(Tile ** board, int N_row, int N_col, int * vet_rotation) {
+    int idx_vet_rotation = 0;
     for(int i = 0; i < N_row; i++) {
         for(int j = 0; j < N_col; j++) {
-            if(vet_rotation[i*N_row + j] == 1) {
-                // Rotate the tile
-                char tmp_value_row = board[i][j].value_row;
-                char tmp_color_row = board[i][j].color_row;
-                board[i][j].value_row = board[i][j].value_col;
-                board[i][j].color_row = board[i][j].color_col;
-                board[i][j].value_col = tmp_value_row;
-                board[i][j].color_col = tmp_color_row;
+            if(board[i][j].conf_in == 0) {
+                if(vet_rotation[idx_vet_rotation] == 1) {
+                    // Rotate the tile
+                    char tmp_value_row = board[i][j].value_row;
+                    char tmp_color_row = board[i][j].color_row;
+                    board[i][j].value_row = board[i][j].value_col;
+                    board[i][j].color_row = board[i][j].color_col;
+                    board[i][j].value_col = tmp_value_row;
+                    board[i][j].color_col = tmp_color_row;
+                }
+                idx_vet_rotation++;
             }
         }
     }
