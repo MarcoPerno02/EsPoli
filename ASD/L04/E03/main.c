@@ -38,7 +38,7 @@ int main() {
 
 int loadCollection(Collection ** collections) {
     FILE * fin;
-    if((fin = fopen("hard_test_set.txt", "r")) == NULL) {
+    if((fin = fopen("easy_test_set.txt", "r")) == NULL) {
         printf("Errore apertura file");
         exit(-1);
     }
