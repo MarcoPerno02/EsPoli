@@ -1,0 +1,38 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc.exe compila il file attivo",
+            "command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}\\gdr.c",
+                "${workspaceFolder}\\inv.h",
+                "${workspaceFolder}\\inv.c",
+                "${workspaceFolder}\\pg.h",
+                "${workspaceFolder}\\pg.c",
+                "${workspaceFolder}\\invArray.h",
+                "${workspaceFolder}\\invArray.c",
+                "${workspaceFolder}\\pgList.h",
+                "${workspaceFolder}\\pgList.c",
+                "${workspaceFolder}\\equipArray.h",
+                "${workspaceFolder}\\equipArray.c",
+                "-o",
+                "${fileDirname}\\gdr.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Attività generata dal debugger."
+        }
+    ],
+    "version": "2.0.0"
+}
