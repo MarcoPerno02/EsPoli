@@ -34,7 +34,7 @@ void pgList_read(FILE *fp, pgList_t pgList) {
 
 void pgList_print(FILE *fp, pgList_t pgList, invArray_t invArray) {
     for(nodoPg_t node = pgList->headPg; node->next != NULL; node = node->next) {
-
+        fprintf(fp, "%s\n", node->pg.cod);
     }
 }
 
@@ -42,6 +42,7 @@ void pgList_print(FILE *fp, pgList_t pgList, invArray_t invArray) {
 void pgList_insert(pgList_t pgList, pg_t pg) {
     nodoPg_t node = malloc(sizeof(struct nodoPg_s));
     node->pg = pg;
+    node->next = NULL;
     if(pgList->nPg == 0){
         pgList->headPg = node;
         pgList->tailPg = node;
