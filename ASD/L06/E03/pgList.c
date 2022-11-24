@@ -33,8 +33,10 @@ void pgList_read(FILE *fp, pgList_t pgList) {
 }
 
 void pgList_print(FILE *fp, pgList_t pgList, invArray_t invArray) {
-    for(nodoPg_t node = pgList->headPg; node->next != NULL; node = node->next) {
+    for(nodoPg_t node = pgList->headPg; node != NULL; node = node->next) {
         fprintf(fp, "%s\n", node->pg.cod);
+        printf("Equip:\n");
+        equipArray_print(fp, node->pg.equip, invArray);
     }
 }
 
@@ -56,7 +58,43 @@ void pgList_insert(pgList_t pgList, pg_t pg) {
 }
 
 /* cancellazione con rimozione */
-void pgList_remove(pgList_t pgList, char* cod) {}
+void pgList_remove(pgList_t pgList, char* cod) {
+    nodoPg_t node = pgList->headPg;
+    nodoPg_t prec = NULL;
+    int found = 0;
+    while(node != NULL && found == 0){
+        if(strcmp(node->pg.cod, cod) == 0) {
+            if(prec != NULL) {
+                prec->next = node->next;
+            } 
+            else {
+                pgList->headPg = node->next;
+            }
+            free(node);
+            pgList->nPg -= 1;
+            found = 1;
+        }
+        else {
+            prec = node;
+            node = node->next;
+        }
+    }
+}
 
 /* ricerca per codice, ritornando il puntatore */
-pg_t *pgList_searchByCode(pgList_t pgList, char* cod) {}
+pg_t *pgList_searchByCode(pgList_t pgList, char* cod) {
+    nodoPg_t node = pgList->headPg;
+    int found = 0;
+    while(node != NULL && found == 0){
+        if(strcmp(node->pg.cod, cod) == 0) {
+            found = 1;
+        }
+        else {
+            node = node->next;
+        }
+    }
+    if(found == 1)
+        return &(node->pg);
+    else
+        return NULL;
+}

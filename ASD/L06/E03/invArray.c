@@ -22,20 +22,38 @@ void invArray_free(invArray_t invArray) {
 void invArray_read(FILE *fp, invArray_t invArray) {
     fscanf(fp, "%d", &invArray->maxInv);
     invArray->nInv = invArray->maxInv;
-    //invArray->vettInv = malloc(sizeof(inv_t *) * invArray->maxInv);
-    invArray->vettInv = malloc(sizeof(invArray->maxInv));
+    invArray->vettInv = malloc(sizeof(inv_t)* invArray->maxInv);
     for(int i = 0; i < invArray->maxInv; i++) {
         inv_read(fp, &(invArray->vettInv[i]));
     }
 }
 void invArray_print(FILE *fp, invArray_t invArray) {
     for(int i = 0; i < invArray->nInv; i++) {
-        fprintf(fp, "%s %s %d %d %d %d %d %d\n", invArray->vettInv[i].nome, invArray->vettInv[i].tipo, invArray->vettInv[i].stat.atk, invArray->vettInv[i].stat.def, invArray->vettInv[i].stat.hp, invArray->vettInv[i].stat.mag, invArray->vettInv[i].stat.mp, invArray->vettInv[i].stat.spr);
+        inv_print(fp, &(invArray->vettInv[i]));
     }
 }
 /* stampa un unico oggetto selezionato da indice (nel vettore) */
-void invArray_printByIndex(FILE *fp, invArray_t invArray, int index) {}
+void invArray_printByIndex(FILE *fp, invArray_t invArray, int index) {
+    inv_print(fp, &(invArray->vettInv[index]));
+}
 /* ritorna puntatore a oggetto selezionato da indice (nel vettore) */
-inv_t *invArray_getByIndex(invArray_t invArray, int index) {}
+inv_t *invArray_getByIndex(invArray_t invArray, int index) {
+
+}
 /* ritorna indice (nel vettore) a oggetto selezionato da nome */
-int invArray_searchByName(invArray_t invArray, char *name) {}
+int invArray_searchByName(invArray_t invArray, char *name) {
+    int i = 0;
+    int found = 0;
+    while(i < invArray->nInv && found == 0) {
+        if(strcmp(invArray->vettInv[i].nome, name) == 0) {
+            found = 1;
+        }
+        else {
+            i++;
+        }
+    }
+    if(found == 1)
+        return i;
+    else 
+        return -1;  
+}
