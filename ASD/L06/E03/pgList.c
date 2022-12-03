@@ -22,6 +22,9 @@ pgList_t pgList_init() {
 }
 
 void pgList_free(pgList_t pgList) {
+    for(nodoPg_t node = pgList->headPg; node->next != NULL; node = node->next) {
+        pg_clean(&(node->pg));
+    }
     free(pgList);
 }
 
@@ -34,9 +37,7 @@ void pgList_read(FILE *fp, pgList_t pgList) {
 
 void pgList_print(FILE *fp, pgList_t pgList, invArray_t invArray) {
     for(nodoPg_t node = pgList->headPg; node != NULL; node = node->next) {
-        fprintf(fp, "%s\n", node->pg.cod);
-        printf("Equip:\n");
-        equipArray_print(fp, node->pg.equip, invArray);
+        pg_print(fp, &(node->pg), invArray);
     }
 }
 

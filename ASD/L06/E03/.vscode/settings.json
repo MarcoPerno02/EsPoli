@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "pglist.h": "c",
-        "invarray.h": "c"
+        "invarray.h": "c",
+        "pg.h": "c"
     }
 }

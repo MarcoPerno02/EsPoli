@@ -3,8 +3,30 @@
 #include "inv.h"
 
 /* funzioni di input/output delle statistiche */
-void stat_read(FILE *fp, stat_t *statp) {}
-void stat_print(FILE *fp, stat_t *statp, int soglia) {}
+void stat_read(FILE *fp, stat_t *statp) {
+    fscanf(fp, "%d %d %d %d %d %d", &(statp->hp), &(statp->mp), &(statp->atk), &(statp->def), &(statp->mag), &(statp->spr));
+}
+void stat_print(FILE *fp, stat_t *statp, int soglia) {
+    if(statp->atk < soglia) {
+        statp->atk = 0;
+    }
+    if(statp->def < soglia) {
+        statp->def = 0;
+    }
+    if(statp->hp < soglia) {
+        statp->hp = 0;
+    }
+    if(statp->mag < soglia) {
+        statp->mag = 0;
+    }
+    if(statp->mp < soglia) {
+        statp->mp = 0;
+    }
+    if(statp->spr < soglia) {
+        statp->spr = 0;
+    }
+    fprintf(fp, "Stat:\natk: %d def: %d hp: %d mag: %d mp: %d spr: %d\n", statp->atk, statp->def, statp->hp, statp->mag, statp->mp, statp->spr);
+}
 
 /* funzioni di input/output di un oggetto dell'inventario */
 void inv_read(FILE *fp, inv_t *invp) {
@@ -15,4 +37,6 @@ void inv_print(FILE *fp, inv_t *invp) {
 }
 
 /* ritorna il campo stat di un oggetto dell'inventario */
-stat_t inv_getStat(inv_t *invp) {}
+stat_t inv_getStat(inv_t *invp) {
+    return invp->stat;
+}
