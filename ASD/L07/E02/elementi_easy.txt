@@ -1,0 +1,4 @@
+3
+ruota 0 1 1 0 1 10.0 1
+ribaltata_a_2 1 1 1 0 0 0.2 2
+front_tuck 2 1 1 0 0 0.1 3
