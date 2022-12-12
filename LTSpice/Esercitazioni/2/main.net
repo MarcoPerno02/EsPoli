@@ -1,0 +1,6 @@
+* C:\Users\Marco\Desktop\Marco\Programmazione\C\EsPoli\LTSpice\Esercitazioni\2\main.asc
+V1 N001 0 10
+R1 N002 N001 1
+R2 N002 0 1
+.backanno
+.end

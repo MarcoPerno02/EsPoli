@@ -31,7 +31,7 @@ int main() {
     Collection * collections;
     int n_set = loadCollection(&collections);
     for(int i = 0; i < n_set; i++) {
-        printf("Test%d:\n", i);
+        printf("Test%d:\n", i+1);
         bestCombination(collections[i]);
     }
 }
@@ -190,7 +190,7 @@ void addStone(Stone * combination, int pos, int len, Collection * collection, St
 }
 
 void handleFinalCase(Stone * combination, int pos, Stone * best_combination, int * len_best_combination) {
-    printCombination(combination, pos);
+    //printCombination(combination, pos);
     if(pos > *len_best_combination) {
         for(int i = 0; i < pos; i++) {
             best_combination[i] = combination[i];
