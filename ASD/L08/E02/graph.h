@@ -5,3 +5,4 @@ typedef struct graph * Graph;
 
 Graph GRAPHinit(int V);
 Graph GRAPHload(FILE *fin);
+void GRAPHfree(Graph G);

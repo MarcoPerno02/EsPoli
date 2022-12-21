@@ -3,6 +3,7 @@
 #include <string.h>
 #include "st.h"
 
+
 struct symboltable {
     char ** vet;
     int N;
@@ -19,7 +20,7 @@ ST STinit()
 }
 
 void STfree(ST st) {
-    for(int i = 0; i < st->M; i++) {
+    for(int i = 0; i < st->N; i++) {
         free(st->vet[i]);
     }
     free(st->vet);

@@ -8,5 +8,6 @@ int main() {
     fin = fopen("grafo.txt", "r");
     if(fin == NULL) exit(-1);
     Graph g = GRAPHload(fin);
+    GRAPHfree(g);
     fclose(fin);
 }

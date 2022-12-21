@@ -4,6 +4,27 @@
 #include "edge.h"
 #include "st.h"
 
+// I will use this list to save the name of each vertex with asc order and then I will give to them an id
+typedef struct edgeNode * link;
+struct edgeNode {
+    char name[30+1];
+    link next;
+};
+
+typedef struct edgeList * EdgeList;
+struct edgeList {
+    link head;
+    link tail;
+    int N;
+};
+
+void addNameToEdgeList(struct edgeList list, char * name) {
+    for(link x = list.head; x != NULL; x = x->next) {
+        
+    }
+}
+
+
 Edge EDGEcreate(int v, char * v_name, char * v_subnet, int w, char * w_name, char * w_subnet, int weight) {
     Edge edge_to_add = malloc(sizeof(struct edge));
     edge_to_add->v = v;
@@ -20,6 +41,9 @@ EdgeArray EDGEReadEdges(FILE *fin, ST st) {
     int max_vertex = -1;
     int dim = 2;
     Edge edges = malloc(sizeof(struct edge) * dim);
+    struct edgeList list;
+    list.next = NULL;
+    list.tail = NULL;
     int i = 0;
     char v_name[30+1];
     char v_subnet[30+1];
@@ -27,14 +51,15 @@ EdgeArray EDGEReadEdges(FILE *fin, ST st) {
     char w_subnet[30+1];
     int weight;
     while(fscanf(fin, "%s %s %s %s %d", v_name, v_subnet, w_name, w_subnet, &(weight)) != EOF) {
+        /*
         int v = STSearch(st, v_name);
         if(v > max_vertex)
             max_vertex = v;
         int w = STSearch(st, w_name);
         if(w > max_vertex)
             max_vertex = w;
-
-        Edge edge_to_add = EDGEcreate(v, v_name, v_subnet, w, w_name, w_subnet, weight);
+        */
+        Edge edge_to_add = EDGEcreate(-1, v_name, v_subnet, -1, w_name, w_subnet, weight);
 
         if(i == dim) {
             dim *= 2;
@@ -46,7 +71,7 @@ EdgeArray EDGEReadEdges(FILE *fin, ST st) {
     EdgeArray edgesArray = malloc(sizeof(struct edgeArray));
     edgesArray->edges = edges;
     edgesArray->N = i;
-    edgesArray->N_vertex = max_vertex;
+    edgesArray->N_vertex = max_vertex+1;
     return edgesArray;
 }
 
