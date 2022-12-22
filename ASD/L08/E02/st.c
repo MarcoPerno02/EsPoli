@@ -27,7 +27,8 @@ void STfree(ST st) {
     free(st);
 }
 
-void STInsert(ST st, char * label, int pos) {
+void STInsert(ST st, char * label) {
+    int pos = st->N;
     if(pos == st->M) {
         st->M *= 2;
         st->vet = realloc(st->vet, (st->M)*sizeof(char *));
@@ -37,13 +38,31 @@ void STInsert(ST st, char * label, int pos) {
     st->N += 1;
 }
 
-int STSearch(ST st, char * label) {
+void STPrintst(ST st) {
+    for(int i = 0; i < st->N; i++) {
+        printf("%d: %s\n", i, st->vet[i]);
+    }
+}
+
+int STSearchByLabel(ST st, char * label) {
     int i = 0; 
     while(i != st->N && strcmp(st->vet[i], label) != 0) {
         i++;
     }
     if(i==st->N) {
-        STInsert(st, label, i);
+        return -1;
     }
     return i;
+}
+
+int STVertexCount(ST st) {
+    return st->N;
+}
+
+
+char * STSearchById(ST st, int id) {
+    if(id >= st->N) {
+        return "";
+    }
+    return st->vet[id];
 }

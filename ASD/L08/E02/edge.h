@@ -17,9 +17,18 @@ typedef struct edgeArray * EdgeArray;
 struct edgeArray {
     Edge edges;
     int N;
-    int N_vertex;
+    int M;
+};
+
+typedef struct vertexArray_s * VertexArray;
+struct vertexArray_s {
+    int N;
+    int M;
+    char ** vertices;
 };
 
 
 EdgeArray EDGEReadEdges(FILE *fin, ST st);
 void EDGEPrintEdges(EdgeArray edgesArray);
+void EDGEFree(EdgeArray edgesArray);
+void STPrintst(ST st);

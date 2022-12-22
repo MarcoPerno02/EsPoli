@@ -49,19 +49,6 @@ void GRAPHinsertE(Graph G, Edge e) {
     G->madj[e->w][e->v] = e->weight;
 }
 
-Graph GRAPHload(FILE *fin) {
-    ST st = STinit();
-    EdgeArray edgesArray = EDGEReadEdges(fin, st);
-    //EDGEPrintEdges(edgesArray);
-    Graph g = GRAPHinit(edgesArray->N_vertex);
-    g->tab = st;
-    for(int i = 0; i < edgesArray->N; i++) {
-        GRAPHinsertE(g, &(edgesArray->edges[i]));
-    }
-    //GRAPHPrintGraph(g);
-    return g;
-}
-
 void GRAPHPrintGraph(Graph g) {
     for(int i = 0; i < g->V; i++) {
         for(int j = 0; j < g->V; j++) {
@@ -77,3 +64,54 @@ void GRAPHPrintGraph(Graph g) {
         printf("\n");
     }
 }
+
+Graph GRAPHload(FILE *fin) {
+    ST st = STinit();
+    EdgeArray edgesArray = EDGEReadEdges(fin, st);
+    //EDGEPrintEdges(edgesArray);
+    Graph g = GRAPHinit(STVertexCount(st));
+    g->tab = st;
+    for(int i = 0; i < edgesArray->N; i++) {
+        GRAPHinsertE(g, &(edgesArray->edges[i]));
+    }
+    GRAPHPrintGraph(g);
+    EDGEFree(edgesArray);
+    return g;
+}
+
+void GRAPHPrintEdgesOfEachVertex(Graph g) {
+    for(int i = 0; i < STVertexCount(g->tab); i++) {
+        char * aa;
+        printf("Archi per vertice %s:\n", STSearchById(g->tab, i));
+        for(int j = 0; j < g->V; j++) {
+            if(g->madj[i][j] != 0) {
+                printf("\t- %s <--> %s. Peso: %d\n", STSearchById(g->tab, i), STSearchById(g->tab, j), g->madj[i][j]);
+            }
+        }
+    }
+}
+
+void GRAPHCheckAdjacency(Graph g) {
+    STPrintst(g->tab);
+    char * name;
+    int vertices[3];
+    for(int i = 0; i < 3; i++) {
+        printf("Inserisci vertice %d: ", i);
+        scanf("%s", name);
+        vertices[i] = STSearchByLabel(g->tab, name);
+    }
+    if(g->madj[vertices[0]][vertices[1]] != 0 && g->madj[vertices[0]][vertices[2]] != 0) {
+        printf("Vertici connessi dagli archi:\n\t- %s <--> %s.\n\t- %s <--> %s\n", STSearchById(g->tab, vertices[0]), STSearchById(g->tab, vertices[1]), STSearchById(g->tab, vertices[0]), STSearchById(g->tab, vertices[2]));
+    }
+    else if(g->madj[vertices[1]][vertices[0]] != 0 && g->madj[vertices[1]][vertices[2]] != 0) {
+        printf("Vertici connessi dagli archi:\n\t- %s <--> %s.\n\t- %s <--> %s\n", STSearchById(g->tab, vertices[1]), STSearchById(g->tab, vertices[0]), STSearchById(g->tab, vertices[1]), STSearchById(g->tab, vertices[2]));
+    }
+    else if(g->madj[vertices[2]][vertices[0]] != 0 && g->madj[vertices[2]][vertices[1]] != 0) {
+        printf("Vertici connessi dagli archi:\n\t- %s <--> %s.\n\t- %s <--> %s\n", STSearchById(g->tab, vertices[2]), STSearchById(g->tab, vertices[0]), STSearchById(g->tab, vertices[2]), STSearchById(g->tab, vertices[1]));
+    }
+    else {
+        printf("I vertici non sono connessi\n");
+    }
+}
+
+

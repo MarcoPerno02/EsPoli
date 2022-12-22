@@ -8,6 +8,8 @@ int main() {
     fin = fopen("grafo.txt", "r");
     if(fin == NULL) exit(-1);
     Graph g = GRAPHload(fin);
+    GRAPHPrintEdgesOfEachVertex(g);
+    GRAPHCheckAdjacency(g);
     GRAPHfree(g);
     fclose(fin);
 }
