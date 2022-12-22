@@ -14,7 +14,7 @@ ST STinit()
 {
     ST st = malloc(sizeof(struct symboltable));
     st->M = 1;
-    st->vet = malloc(st->M * sizeof(char *));
+    st->vet = malloc(st->M * sizeof(char **));
     st->N = 0;
     return st;
 }
@@ -33,7 +33,7 @@ void STInsert(ST st, char * label) {
         st->M *= 2;
         st->vet = realloc(st->vet, (st->M)*sizeof(char *));
     }
-    st->vet[pos] = malloc(sizeof(char)*(30+1));
+    st->vet[pos] = malloc(sizeof(char)*31);
     strcpy(st->vet[pos], label);
     st->N += 1;
 }
