@@ -1,9 +1,9 @@
-Circuit: E1
+Circuit: * cicuito da analizzare epr la scimmia
 
 Direct Newton iteration for .op point succeeded.
 
-Date: Fri Dec 09 15:23:23 2022
-Total elapsed time: 0.011 seconds.
+Date: Sat Dec 31 16:12:22 2022
+Total elapsed time: 0.013 seconds.
 
 tnom = 27
 temp = 27
@@ -13,8 +13,8 @@ traniter = 0
 tranpoints = 0
 accept = 0
 rejected = 0
-matrix size = 3
-fillins = 0
+matrix size = 5
+fillins = 1
 solver = Normal
-Matrix Compiler1: 50 bytes object code size
-Matrix Compiler2: 175 bytes object code size
+Matrix Compiler1: 204 bytes object code size
+Matrix Compiler2: 303 bytes object code size

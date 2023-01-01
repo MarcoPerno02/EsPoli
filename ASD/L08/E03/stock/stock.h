@@ -5,4 +5,5 @@ typedef struct stock_s * Stock;
 
 Stock StockInit();
 void StockFree(Stock stock);
-void StockLoad(FILE * f, Stock stock);
+void StockLoad(FILE * f, Stock stock, char * cod);
+char * StockGetCod(Stock stock);
