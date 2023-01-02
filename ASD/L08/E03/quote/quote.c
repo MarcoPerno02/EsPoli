@@ -15,6 +15,5 @@ Quote QuoteSetNull() {
 }
 
 void QuoteFree(Quote quote) {
-    DATEFree(quote->date);
     free(quote);
 }

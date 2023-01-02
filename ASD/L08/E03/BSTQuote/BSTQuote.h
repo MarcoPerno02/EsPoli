@@ -5,23 +5,32 @@
 #include "../date/date.h"
 
 typedef struct BSTQuote_s * BSTQuote;
-
-typedef struct BSTQuoteNodeContainer_s * linkBSTQuoteContainer;
-struct BSTQuoteNodeContainer_s {
-    BSTQuote BSTQuote;
-    Date date;
-    linkBSTQuoteContainer next;
+typedef struct dailyQuote_s * DailyQuote;
+struct dailyQuote_s {
+    struct date_s date;
+    float quote;
 };
 
-typedef struct BSTQuoteListContainer_s * BSTQuoteListContainer;
-struct BSTQuoteListContainer_s {
-    linkBSTQuoteContainer head;
-    linkBSTQuoteContainer tail;
-    int N;
-};
+//typedef struct BSTQuoteNodeContainer_s * linkBSTQuoteContainer;
+//struct BSTQuoteNodeContainer_s {
+//    BSTQuote BSTQuote;
+//    Date date;
+//    linkBSTQuoteContainer next;
+//};
+
+//typedef struct BSTQuoteListContainer_s * BSTQuoteListContainer;
+//struct BSTQuoteListContainer_s {
+//    linkBSTQuoteContainer head;
+//    linkBSTQuoteContainer tail;
+//    int N;
+//};
 
 
-BSTQuoteListContainer BSTQuoteListContainerInit();
-void BSTQuoteListContainerFree(BSTQuoteListContainer list);
-void BSTQuoteListContainerInsert(FILE * f, BSTQuoteListContainer list);
+
+//BSTQuoteListContainer BSTQuoteListContainerInit();
+//void BSTQuoteListContainerFree(BSTQuoteListContainer list);
+//void BSTQuoteListContainerInsert(FILE * f, BSTQuoteListContainer list);
+BSTQuote BSTQuoteinit();
+void BSTQuoteInsert(FILE * f, BSTQuote bst);
+void BSTQuotefree(BSTQuote bst);
 #endif

@@ -6,18 +6,18 @@
 
 struct stock_s {
     char cod[20+1];
-    BSTQuoteListContainer BSTQuoteListContainer;
+    BSTQuote BSTQuote;
 };
 
 
 Stock StockInit() {
     Stock stock = malloc(sizeof(struct stock_s));
-    stock->BSTQuoteListContainer = NULL;
+    stock->BSTQuote = NULL;
     return stock;
 }
 
 void StockFree(Stock stock) {
-    BSTQuoteListContainerFree(stock->BSTQuoteListContainer);
+    BSTQuotefree(stock->BSTQuote);
     free(stock);
 }
 
@@ -27,7 +27,7 @@ char * StockGetCod(Stock stock) {
 
 void StockLoad(FILE * f, Stock stock, char * cod) {
     strcpy(stock->cod, cod);
-    if(stock->BSTQuoteListContainer == NULL)
-        stock->BSTQuoteListContainer = BSTQuoteListContainerInit();
-    BSTQuoteListContainerInsert(f, stock->BSTQuoteListContainer);
+    if(stock->BSTQuote == NULL)
+        stock->BSTQuote = BSTQuoteinit();
+    BSTQuoteInsert(f, stock->BSTQuote);
 }

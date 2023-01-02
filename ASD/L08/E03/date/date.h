@@ -15,8 +15,7 @@ struct date_s{
     int minute;
 };
 
-long DATEConvertDateToUnixTime(Date date);
-Date DATEInit(int year, int month, int day, int hour, int minute);
-Date DATEFree(Date date);
+long DATEConvertDateToUnixTime(struct date_s date);
+struct date_s DATEInit(int year, int month, int day, int hour, int minute);
 
 #endif

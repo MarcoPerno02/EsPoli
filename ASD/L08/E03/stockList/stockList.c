@@ -46,9 +46,24 @@ void StockListInsert(StockList list, linkNodeStock node) {
         list->tail = node;
     }
     else {
-        linkNodeStock tail = list->tail;
-        tail->next = node;
-        list->tail = node;
+        linkNodeStock prev = NULL;
+        linkNodeStock x;
+        for(x  = list->head; x != NULL && strcmp(StockGetCod(node->stock), StockGetCod(x->stock)) > 0; x = x->next) {
+            prev = x;
+        }
+        if(prev == NULL) {
+            node->next = list->head;
+            list->head = node;
+        }
+        else if(x == NULL) {
+            linkNodeStock tail = list->tail;
+            tail->next = node;
+            list->tail = node;
+        } 
+        else {
+            prev->next = node;
+            node->next = x;
+        }
     }
     list->N += 1;
 }
@@ -68,11 +83,14 @@ void StockListLoad(FILE * f, StockList list) {
         char cod [50+1];
         fscanf(f, "%s", cod);
         linkNodeStock node = StockListSearchByCod(list, cod);
+        int save = 0;
         if(node == NULL) {
             node = StockListNewNode();
             node->stock = StockInit();
+            save = 1;
         }
         StockLoad(f, node->stock, cod);
-        StockListInsert(list, node);
+        if(save == 1)
+            StockListInsert(list, node);
     }
 }

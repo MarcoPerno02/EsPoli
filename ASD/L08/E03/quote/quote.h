@@ -5,7 +5,7 @@
 typedef struct quote_s * Quote;
 
 struct quote_s {
-    Date date;
+    struct date_s date;
     float val;
     int qty;
 };
