@@ -73,6 +73,22 @@ BSTQuote BSTQuoteinit()
     return bst;
 }
 
+Quote searchForDateR(link h, struct date_s k, link z) {
+    if (h == z)
+        return NULL;
+    if(h->quote->date.unix_time == k.unix_time) {
+        return h->quote;
+    }
+    if(k.unix_time < h->quote->date.unix_time)
+        return searchForDateR(h->l, k, z);
+    else 
+        return searchForDateR(h->r, k, z);
+}
+
+
+Quote BSTQuoteSearchForDate(BSTQuote bst, struct date_s date) {
+    return searchForDateR(bst->root, date, bst->z);
+}
 
 void BSTQuoteInsert(FILE * f, BSTQuote bst) {
     int n_quote;

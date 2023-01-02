@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../date/date.h"
+#include "../quote/quote.h"
 
 typedef struct BSTQuote_s * BSTQuote;
 typedef struct dailyQuote_s * DailyQuote;
@@ -33,4 +34,5 @@ struct dailyQuote_s {
 BSTQuote BSTQuoteinit();
 void BSTQuoteInsert(FILE * f, BSTQuote bst);
 void BSTQuotefree(BSTQuote bst);
+Quote BSTQuoteSearchForDate(BSTQuote bst, struct date_s date);
 #endif

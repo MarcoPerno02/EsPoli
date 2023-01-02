@@ -3,6 +3,7 @@
 #include <string.h>
 #include "stock.h"
 #include "../BSTQuote/BSTQuote.h"
+#include "../quote/quote.h"
 
 struct stock_s {
     char cod[20+1];
@@ -30,4 +31,9 @@ void StockLoad(FILE * f, Stock stock, char * cod) {
     if(stock->BSTQuote == NULL)
         stock->BSTQuote = BSTQuoteinit();
     BSTQuoteInsert(f, stock->BSTQuote);
+}
+
+Quote StockSearchForDate(Stock stock, struct date_s date) {
+    Quote x = BSTQuoteSearchForDate(stock->BSTQuote, date);
+    return x;
 }

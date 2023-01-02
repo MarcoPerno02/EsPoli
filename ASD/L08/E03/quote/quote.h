@@ -1,3 +1,5 @@
+#ifndef QUOTE_H_DEFINED
+#define QUOTE_H_DEFINED
 #include <stdio.h>
 #include <stdlib.h>
 #include "../date/date.h"
@@ -13,3 +15,4 @@ struct quote_s {
 Quote QuoteInit();
 void QuoteFree(Quote quote);
 Quote QuoteSetNull();
+#endif

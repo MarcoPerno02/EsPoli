@@ -1,10 +1,11 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "stockList.h"
 #include "../stock/stock.h"
 
-typedef struct nodeStockList * linkNodeStock;
+
 struct nodeStockList {
     Stock stock;
     linkNodeStock next;
@@ -68,7 +69,15 @@ void StockListInsert(StockList list, linkNodeStock node) {
     list->N += 1;
 }
 
-linkNodeStock StockListSearchByCod(StockList list, char * cod) {
+Stock StockListSearchByCodStockVersion(StockList list, char * cod) {
+    for(linkNodeStock x = list->head; x != NULL; x = x->next) {
+        if(strcmp(StockGetCod(x->stock), cod) == 0)
+            return x->stock;
+    }
+    return NULL;
+}
+
+linkNodeStock StockListSearchByCodPointerVersion(StockList list, char * cod) {
     for(linkNodeStock x = list->head; x != NULL; x = x->next) {
         if(strcmp(StockGetCod(x->stock), cod) == 0)
             return x;
@@ -82,7 +91,7 @@ void StockListLoad(FILE * f, StockList list) {
     for(int i = 0; i < num_of_stocks; i++) {
         char cod [50+1];
         fscanf(f, "%s", cod);
-        linkNodeStock node = StockListSearchByCod(list, cod);
+        linkNodeStock node = StockListSearchByCodPointerVersion(list, cod);
         int save = 0;
         if(node == NULL) {
             node = StockListNewNode();
