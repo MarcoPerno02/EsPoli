@@ -4,6 +4,7 @@
         "stocklist.h": "c",
         "string.h": "c",
         "quotebst.h": "c",
-        "quote.h": "c"
+        "quote.h": "c",
+        "limits": "c"
     }
 }

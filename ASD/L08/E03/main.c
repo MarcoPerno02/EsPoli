@@ -56,6 +56,30 @@ int main() {
             else 
                 printf("Non trovato\n");
         }
+        else if(choice == 3 || choice == 4) {
+            char cod [50+1];
+            printf("Inserire codice: ");
+            scanf("%s", cod);
+            Stock stock = StockListSearchByCodStockVersion(stockList, cod);
+            if(stock != NULL) {
+                StockSearchQuoteMaxAndMinInRange(stock, choice-3);
+            }
+            else {
+                printf("Non trovato");
+            }
+        }
+        else if(choice == 5) {
+            char cod [50+1];
+            printf("Inserire codice: ");
+            scanf("%s", cod);
+            Stock stock = StockListSearchByCodStockVersion(stockList, cod);
+            if(stock != NULL) {
+                StockBalanceBSTQuote(stock);
+            }
+            else {
+                printf("Non trovato");
+            }
+        }
     } while(choice != 0);
     StockListFree(stockList);
 }

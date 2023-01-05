@@ -1,0 +1,16 @@
+* aaa
+Vs1 1 0 20m
+Ra 2 0 4.7k
+Rfa 2 3 12k
+Rb 3 4 10k
+Rfb 4 6 120k
+Vs2 5 0 40m
+XOA1 1 2 3 opamp
+XOA2 5 4 6 opamp
+
+
+.SUBCKT OPAMP 1 2 3
+Ea 3 0 1 2 1e8
+
+.op
+.end

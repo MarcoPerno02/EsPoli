@@ -1,0 +1,9 @@
+* aaa
+Ve 2 0 dc 10
+R1 1 2 40
+Vd 3 1 dc 0
+Is 3 0 2
+F1 0 3 Vd 5
+Vcc 3 0 0
+.op
+.end

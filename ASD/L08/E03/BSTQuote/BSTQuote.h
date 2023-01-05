@@ -35,4 +35,6 @@ BSTQuote BSTQuoteinit();
 void BSTQuoteInsert(FILE * f, BSTQuote bst);
 void BSTQuotefree(BSTQuote bst);
 Quote BSTQuoteSearchForDate(BSTQuote bst, struct date_s date);
+void BSTQuoteSearchMaxAndMin(BSTQuote bst, Date start_date, Date finish_date, int * max, int * min);
+void BSTQuotebalance(BSTQuote bst);
 #endif

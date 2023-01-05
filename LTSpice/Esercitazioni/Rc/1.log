@@ -1,0 +1,21 @@
+Circuit: *aa
+
+Direct Newton iteration for .op point succeeded.
+
+Date: Wed Jan 04 18:05:12 2023
+Total elapsed time: 0.022 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2516
+traniter = 2513
+tranpoints = 1235
+accept = 1198
+rejected = 37
+matrix size = 8
+fillins = 0
+solver = Normal
+Matrix Compiler1:      15 opcodes  0.1/[0.0]/0.1
+Matrix Compiler2:      45 opcodes  0.1/[0.1]/0.1
+

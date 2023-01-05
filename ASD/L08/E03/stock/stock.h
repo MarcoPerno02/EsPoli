@@ -12,4 +12,6 @@ void StockFree(Stock stock);
 void StockLoad(FILE * f, Stock stock, char * cod);
 char * StockGetCod(Stock stock);
 Quote StockSearchForDate(Stock stock, struct date_s date);
+void StockSearchQuoteMaxAndMinInRange(Stock stock, int opt);
+void StockBalanceBSTQuote(Stock stock);
 #endif

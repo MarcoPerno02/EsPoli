@@ -1,0 +1,15 @@
+*aa
+
+Ve 1 0 30
+R1 1 4 8k
+R2 0 4 2k
+R3 4 3 800
+R4 1 2 12k
+C 3 5 250E-6
+R 5 0 1.6k
+S1 2 3 6 0 SMOD
+.MODEL SMOD VSWITCH ROFF=1E10
+VS 6 0 pulse(0 1 1 1e-6 1e-6 1 100)
+.TRAN 0.05 5
+.PLOT TRAN v(6)
+.end

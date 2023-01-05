@@ -37,3 +37,28 @@ Quote StockSearchForDate(Stock stock, struct date_s date) {
     Quote x = BSTQuoteSearchForDate(stock->BSTQuote, date);
     return x;
 }
+
+
+void StockSearchQuoteMaxAndMinInRange(Stock stock, int opt) {
+    if(opt == 0) {
+        int year, month, day, minute, hour;
+        printf("Inserisici data inizio (YY/MM/DD hh:mi): ");
+        fscanf(stdin, "%d/%d/%d %d:%d", &year, &month, &day, &hour, &minute);
+        struct date_s start_date = DATEInit(year, month, day, hour, minute);
+        printf("Inserisici data fine (YY/MM/DD hh:mi): ");
+        fscanf(stdin, "%d/%d/%d %d:%d", &year, &month, &day, &hour, &minute);
+        struct date_s finish_date = DATEInit(year, month, day, hour, minute);
+        int max, min;
+        BSTQuoteSearchMaxAndMin(stock->BSTQuote, &start_date, &finish_date, &max, &min);
+        printf("Max: %d. Min: %d\n", max, min);
+    }
+    else {
+        int max, min;
+        BSTQuoteSearchMaxAndMin(stock->BSTQuote, NULL, NULL, &max, &min);
+        printf("Max: %d. Min: %d\n", max, min);
+    }
+}
+
+void StockBalanceBSTQuote(Stock stock) {
+    BSTQuotebalance(stock->BSTQuote);
+}
