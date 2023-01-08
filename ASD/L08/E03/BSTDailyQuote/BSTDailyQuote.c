@@ -1,19 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "BSTQuote.h"
-#include "../quote/quote.h"
+#include "BSTDailyQuote.h"
 
 
 
 typedef struct node* link;
-struct node {Quote quote;link p;link l;link r;int N;};
-struct BSTQuote_s { link root; link z; };
+struct node {DailyQuote dailyQuote; link p;link l;link r;int N;};
+struct BSTDailyQuote_s { link root; link z; };
 
-static link NEW(Quote quote, link p, link l, link r, int N)
+static link NEW(DailyQuote quote, link p, link l, link r, int N)
 {
     link x = malloc(sizeof *x);
-    x->quote = quote;
+    x->dailyQuote = quote;
     x->p = p;
     x->l = l;
     x->r = r;
@@ -27,40 +26,41 @@ static void treeFree(link h, link z)
 {
     if (h == z)
         return;
-    QuoteFree(h->quote);
+    free(h->dailyQuote);
     treeFree(h->l,z);
     treeFree(h->r, z);
     free(h);
 }
 
-void BSTQuotefree(BSTQuote bst)
+void BSTDailyQuotefree(BSTDailyQuote bst)
 {
     if (bst == NULL)
         return;
     treeFree(bst->root, bst->z);
+    free(bst->z->dailyQuote);
     free(bst->z);
     free(bst);
 }
 
-void SearchMaxAndMin(link h, link z, Date start_date, Date finish_date, int * max, int * min) {
+void SearchMaxAndMin(link h, link z, Date start_date, Date finish_date, float * max, float * min) {
     if (h == z)
         return;
     SearchMaxAndMin(h->l, z, start_date, finish_date, max, min);
     if(start_date != NULL && finish_date != NULL) {
-        if(h->quote->date.unix_time > finish_date->unix_time)
+        if(h->dailyQuote->date.unix_time > finish_date->unix_time)
             return;
     }
-    if(start_date == NULL || h->quote->date.unix_time >= start_date->unix_time) {
-        if(h->quote->val > *max)
-            *max = h->quote->val;
-        if(h->quote->val < * min) 
-            *min = h->quote->val;
+    if(start_date == NULL || h->dailyQuote->date.unix_time >= start_date->unix_time) {
+        if(h->dailyQuote->quote > *max)
+            *max = h->dailyQuote->quote;
+        if(h->dailyQuote->quote < * min) 
+            *min = h->dailyQuote->quote;
         }
     SearchMaxAndMin(h->r, z, start_date, finish_date, max, min);
 
 }
 
-void BSTQuoteSearchMaxAndMin(BSTQuote bst, Date start_date, Date finish_date, int * max, int * min) {
+void BSTDailyQuoteSearchMaxAndMin(BSTDailyQuote bst, Date start_date, Date finish_date, float * max, float * min) {
     if (bst == NULL) {
         *max = 0;
         *min = 0;
@@ -73,11 +73,11 @@ void BSTQuoteSearchMaxAndMin(BSTQuote bst, Date start_date, Date finish_date, in
 }
 
 
-link insertR(link h, Quote x, link z)
+link insertR(link h, DailyQuote x, link z)
 {
     if (h == z)
         return NEW(x, z, z, z, 1);
-    if (x->date.unix_time < h->quote->date.unix_time)
+    if (x->date.unix_time < h->dailyQuote->date.unix_time)
     {
         h->l = insertR(h->l, x, z);
         h->l->p = h;
@@ -91,36 +91,49 @@ link insertR(link h, Quote x, link z)
     return h;
 }
 
-void BSTinsert_leafR(BSTQuote bst, Quote x)
+void BSTinsert_leafR(BSTDailyQuote bst, DailyQuote x)
 {
     bst->root = insertR(bst->root, x, bst->z);
 }
 
-BSTQuote BSTQuoteinit()
+BSTDailyQuote BSTDailyQuoteinit()
 {
-    BSTQuote bst = malloc(sizeof(struct BSTQuote_s));
-    bst->root = (bst->z = NEW(QuoteSetNull(), NULL, NULL, NULL, 0));
+    BSTDailyQuote bst = malloc(sizeof(struct BSTDailyQuote_s));
+    DailyQuote dailyQuote = malloc(sizeof(struct dailyQuote_s));
+    bst->root = (bst->z = NEW(dailyQuote, NULL, NULL, NULL, 0));
     return bst;
 }
 
-Quote searchForDateR(link h, struct date_s k, link z) {
+DailyQuote searchForDateR(link h, struct date_s k, link z) {
     if (h == z)
         return NULL;
-    if(h->quote->date.unix_time == k.unix_time) {
-        return h->quote;
+    if(h->dailyQuote->date.unix_time == k.unix_time) {
+        return h->dailyQuote;
     }
-    if(k.unix_time < h->quote->date.unix_time)
+    if(k.unix_time < h->dailyQuote->date.unix_time)
         return searchForDateR(h->l, k, z);
     else 
         return searchForDateR(h->r, k, z);
 }
 
+link BSTDailyQuoteSearchForDateRPointerVerion(link h, struct date_s k, link z) {
+    if (h == z)
+        return NULL;
+    if(h->dailyQuote->date.unix_time == k.unix_time) {
+        return h;
+    }
+    if(k.unix_time < h->dailyQuote->date.unix_time)
+        return BSTDailyQuoteSearchForDateRPointerVerion(h->l, k, z);
+    else 
+        return BSTDailyQuoteSearchForDateRPointerVerion(h->r, k, z);
+}
 
-Quote BSTQuoteSearchForDate(BSTQuote bst, struct date_s date) {
+
+DailyQuote BSTDailyQuoteSearchForDate(BSTDailyQuote bst, struct date_s date) {
     return searchForDateR(bst->root, date, bst->z);
 }
 
-void BSTQuoteInsert(FILE * f, BSTQuote bst) {
+void BSTDailyQuoteInsert(FILE * f, BSTDailyQuote bst) {
     int n_quote;
     fscanf(f, "%d", &n_quote);
     
@@ -128,10 +141,28 @@ void BSTQuoteInsert(FILE * f, BSTQuote bst) {
         // Iterate on each quote and add it the list of that day
         int year, month, day, minute, hour;
         fscanf(f, "%d/%d/%d %d:%d", &year, &month, &day, &hour, &minute);
-        Quote quote = QuoteInit();
-        quote->date = DATEInit(year, month, day, hour, minute);
-        fscanf(f, "%f %d", &(quote->val), &(quote->qty));
-        BSTinsert_leafR(bst, quote);
+        struct date_s date = DATEInit(year, month, day, 0, 0);
+        float val;
+        int qty;
+        fscanf(f, "%f %d", &(val), &(qty));
+        
+        // Search if the dailyQuote for this date already exists
+        link h = BSTDailyQuoteSearchForDateRPointerVerion(bst->root, date, bst->z);
+        if(h == NULL){
+            DailyQuote dailyQuote = malloc(sizeof(struct dailyQuote_s));
+            dailyQuote->date = date;
+            dailyQuote->n = qty;
+            dailyQuote->quote = (float) val;
+            dailyQuote->sum = (float) val *qty;
+            BSTinsert_leafR(bst, dailyQuote);
+        }
+        else {
+            h->dailyQuote->n += qty;
+            h->dailyQuote->sum += (float) (val*qty);
+            h->dailyQuote->quote = (float)  h->dailyQuote->sum / h->dailyQuote->n;
+        }
+        
+        
     }
 }
 
@@ -210,7 +241,7 @@ void findLongestAndShortestPath(link h, link z, int level, int * longest_path, i
 }
 
 
-void BSTQuotebalance(BSTQuote bst)
+void BSTDailyQuotebalance(BSTDailyQuote bst)
 {
     int longest_path = -1, shortest_path = 999999, level = 1;
     findLongestAndShortestPath(bst->root, bst->z, level, &longest_path, &shortest_path);

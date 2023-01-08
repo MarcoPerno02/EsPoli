@@ -13,10 +13,8 @@
                 "${workspaceFolder}\\stock\\stock.c",
                 "${workspaceFolder}\\stockList\\stockList.h",
                 "${workspaceFolder}\\stockList\\stockList.c",
-                "${workspaceFolder}\\quote\\quote.h",
-                "${workspaceFolder}\\quote\\quote.c",
-                "${workspaceFolder}\\BSTQuote\\BSTQuote.h",
-                "${workspaceFolder}\\BSTQuote\\BSTQuote.c",
+                "${workspaceFolder}\\BSTDailyQuote\\BSTDailyQuote.h",
+                "${workspaceFolder}\\BSTDailyQuote\\BSTDailyQuote.c",
                 "${workspaceFolder}\\main.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"

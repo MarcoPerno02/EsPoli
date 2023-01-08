@@ -3,7 +3,7 @@
 #include "stockList/stockList.h"
 #include "stock/stock.h"
 #include "date/date.h"
-#include "quote/quote.h"
+#include "BSTDailyQuote/BSTDailyQuote.h"
 
 int main() {
     StockList stockList = StockListinit();
@@ -43,12 +43,12 @@ int main() {
             scanf("%s", cod);
             Stock stock = StockListSearchByCodStockVersion(stockList, cod);
             if(stock != NULL) {
-                printf("Inserisci data (YY/MM/DD hh:mi): ");
-                int year, month, day, minute, hour;
-                fscanf(stdin, "%d/%d/%d %d:%d", &year, &month, &day, &hour, &minute);
-                struct date_s date_to_search = DATEInit(year, month, day, hour, minute);
-                Quote quote = StockSearchForDate(stock, date_to_search);
-                if(quote != NULL)
+                printf("Inserisci data (YY/MM/DD): ");
+                int year, month, day;
+                fscanf(stdin, "%d/%d/%d", &year, &month, &day);
+                struct date_s date_to_search = DATEInit(year, month, day, 0, 0);
+                DailyQuote dailyQuote = StockSearchForDate(stock, date_to_search);
+                if(dailyQuote != NULL)
                     printf("Trovato\n");
                 else
                     printf("Non trovato\n");
@@ -74,7 +74,7 @@ int main() {
             scanf("%s", cod);
             Stock stock = StockListSearchByCodStockVersion(stockList, cod);
             if(stock != NULL) {
-                StockBalanceBSTQuote(stock);
+                StockBalanceBSTDailyQuote(stock);
             }
             else {
                 printf("Non trovato");

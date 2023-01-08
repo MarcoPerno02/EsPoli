@@ -5,6 +5,8 @@
         "string.h": "c",
         "quotebst.h": "c",
         "quote.h": "c",
-        "limits": "c"
+        "limits": "c",
+        "bstdailyquote.h": "c",
+        "stdio.h": "c"
     }
 }
