@@ -7,12 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "-ggdb",
                 "${workspaceFolder}\\main.c",
                 "${workspaceFolder}\\st\\st.h",
                 "${workspaceFolder}\\st\\st.c",
-                "${workspaceFolder}\\graph\\graph.h",
-                "${workspaceFolder}\\graph\\graph.c",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
