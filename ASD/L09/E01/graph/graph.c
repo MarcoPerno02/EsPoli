@@ -248,10 +248,10 @@ void GRAPHReturnPossibleDag(Graph G, Edge  *** edges_array_to_return, int *N_dag
     int ** dag_edges_array = malloc(sizeof(int *)*DIM_MAX_dag_edges_array);
     disp_rip_wrapper(G->E, G, &dag_edges_array, &N_dag_edges_array, &DIM_MAX_dag_edges_array, N_edges_deleted);
     if(*N_edges_deleted != 0) {
-        *edges_array_to_return = malloc(sizeof(Edge *) * *N_edges_deleted);
+        *edges_array_to_return = malloc(sizeof(Edge *) * N_dag_edges_array);
         for(int i = 0; i < N_dag_edges_array; i++) {
             printf("%d possibilità, archi rimossi:\n", i+1);
-            (*edges_array_to_return)[i] = malloc(sizeof(Edge) * (G->E - *N_edges_deleted));
+            (*edges_array_to_return)[i] = malloc(sizeof(Edge) * (*N_edges_deleted));
             int cont = 0;
             for(int j = 0; j < G->E; j++) {
                 if(dag_edges_array[i][j] == 1) {
@@ -268,7 +268,18 @@ void GRAPHReturnPossibleDag(Graph G, Edge  *** edges_array_to_return, int *N_dag
     else {
         *edges_array_to_return = NULL;
     }
+    for(int i = 0; i < N_dag_edges_array; i++) {
+        free(dag_edges_array[i]);
+    }
+    free(dag_edges_array);
     
+}
+
+void GRAPHFreeEdgesArray(Edge ** edges_array, int N) {
+    for(int i = 0; i < N; i++) {
+        free(edges_array[i]);
+    }
+    free(edges_array);
 }
 
 int GRAPHPrintDagThatDontHaveMaxWeight(Graph G, Edge ** edges_array, int N, int N_edges_deleted) {

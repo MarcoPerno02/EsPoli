@@ -19,7 +19,6 @@ int main() {
     else {
         printf("Il grafo originale era già un dag\n");
     }
-    //GRAPHFreeEdgesArray()
-    
+    GRAPHFreeEdgesArray(edges_array, N);
     GRAPHfree(g);
 }
