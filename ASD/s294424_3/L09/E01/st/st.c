@@ -7,7 +7,7 @@
 ST STInit(int v) {
     ST st = malloc(sizeof(struct st_s));
     st->N = v;
-    st->vet = malloc(sizeof(st->N * sizeof(Item)));
+    st->vet = malloc(st->N * sizeof(Item));
     return st;
 }
 
