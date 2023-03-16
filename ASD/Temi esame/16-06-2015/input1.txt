@@ -1,0 +1,16 @@
+2
+AA
+DD
+3
+AA
+BB
+CC
+2
+AA
+BB
+2
+DD
+EE
+2
+AA
+DD

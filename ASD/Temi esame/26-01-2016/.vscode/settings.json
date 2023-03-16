@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "calculator.h": "c",
+        "st.h": "c",
+        "graph.h": "c",
+        "city.h": "c"
+    }
+}

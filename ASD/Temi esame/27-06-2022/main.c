@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "graph/graph.h"
+
+int main() {
+    FILE * fin;
+    fin = fopen("G.txt", "r");
+    Graph G = GRAPHLoad(fin);
+    fclose(fin);
+    powersetER(G);
+    GRAPHFree(G);
+}
