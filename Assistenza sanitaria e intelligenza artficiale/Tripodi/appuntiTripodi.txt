@@ -1,0 +1,43 @@
+- L'etica è una DISCIPLINA FILOSOFICA e UN’ISTITUZIONE SOCIALE NORMATIVA E PRESCRITTIVA caratterizzata da EMOTIVITA' e RAZIONALITA'.
+- L'etica non è DIRITTO, ma consente COORDINAMENTO SOCIALE
+- BIOETICA STUDIO SISTEMATICO DELLA CONDOTTA UMANA NEL CAMPO DELLE SCIENZE DELLA VITA E DELLA SALUTE, ESAMINATA ALLA LUCE DI VALORI E PRINCIPI
+- La bioetica può essere FILOSOFICA (Costruisce teorie su problemi generali etici in medicina, in biologica).
+- 4 principi(Beauchamp e Childress): 
+   * AUTONOMIA (il paziente ha diritto di rifiutare il trattamento e di prendere parte al processo decisionale)
+   * Non-maleficenza (il personale sanitario non deve causare danno al paziente)
+   * Beneficenza (il personale sanitario deve agire tutelando l'interesse del paziente)
+   * Giustizia (in caso di risorse limitate, i trattamenti devono essere distribuiti tra i pazienti in modo equo e giusto)
+- TECNOSCIENTISMO: "si deve fare tutto ciò che è fisicamente e tecnicamente possibile fare"
+- Caso TRUMAN: Bomba atomica giappone
+- TROLLEY PROBLEM: Problema Treno su 2 vie
+-------------------------------------------------------------
+- Problema di THOMONSON = Uomo grasso
+- Caso uber = freni di emergenza disabilitati
+- Caso Trapinato = togliere organi da persona buona per salavrne 5
+- Citigroup Center = Edificio progettato male (da LeMeussier) e nascosto, però aggiustato. Scoperto da Hartley
+- Space	Shuttle	Challenger = morte equipaggi a causa di problema meccanico. Ingegneri lo sapevano e suggerirono di non effettuare lancio
+- Dilemma etico = problema etico con decisione tra principi concorrenti. Socrate fa emergere un	conflitto tra due principi morali
+- dilemma morale: Jean Paul Sartre, L’esistenzialismo è	un umanesimo. Guardare madre o andare a combattere
+- SOFOCLE: Antigone deve decidere se fare sepoltura fratello anche se illegale
+- FOOT DISTINGUE TRA beneficialità e non interferenza
+- 4 approcci per decidere:
+    * Conseguenze: minimizzare danno e cercare di soddisfare più possibile (Bentham)
+    * ATTO: Alcune cose sono sbagliate a presecindere dalle conseguenze (KANT)
+    * AGENTE: che tipo di persona dovrei essere (ARISTOTELE)
+    * LA RELAZIONE: verso le persone, non le norme
+--------------------------------------------------------------------
+- La medicina del futuro sarà di tipo preventivo, Le tecnologie digitali pongono questioni etiche
+- algoritmi di IA sono in maniera crescente presenti nella diagnosi delle patologie
+- IA come giudice di bellezza ( non includeva un numero sufficiente di minoranze, non volontario) -> rischio discriminatorio
+- stesso discorso per tumore pelle -> rischio disparità sociali (racial bias)
+- l'algoritmo non fornisce motivo
+- caso Masssimo: intervento chirurgo diverso da quello concordat con paziente
+- CONSENSO INFORMATO
+----------------------------------------------------------------------------
+- AI usa dati -> problema privacy (può andare contro Kant)
+- nascita iper-storia, info-sfera
+- La tesi di Floridi è che siamo inforg (fatti di informazioni)
+
+
+
+
