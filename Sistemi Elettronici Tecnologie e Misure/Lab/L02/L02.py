@@ -4,48 +4,32 @@ import matplotlib.pyplot as plt
 x = np.array([0.1, 0.3, 2, 5, 9, 12, 15, 15.5, 15.7, 15.9,
              16.1, 16.3, 16.8, 19.8, 22.8, 26.8, 29.8]) * 1000
 
-v_in = np.array([816, 824, 816, 808, 808, 808, 800, 800, 800,
-                800, 800, 800, 800, 792, 792, 792, 792])  # * 0.001
+Hsarg = np.array([0.0, -0.1, -6.5, -16.2, -27.5, -34.6, -40.5, -
+                 41.5, -41.8, -42.4, -42.7, -43.0, -44.0, -48.5, -52.2, -56.0, -59.2])
 
-delta_v_in = v_in * (1/20 + 0.03)
-
-v_out = np.array([820, 816, 816, 792, 712, 664, 608, 584, 584,
-                 584, 584, 584, 568, 528, 480, 424, 408])  # * 0.001
-delta_v_out = v_out * (1/20 + 0.03)
-
-Hs = 20*np.log10(v_out/v_in)
-delta_Hs = np.abs(Hs * ((delta_v_out / v_out) + (delta_v_in / v_in)))
-
-print(delta_Hs)
+delta_Hsarg = np.array([0.0, 0.0, 0.3, 0.8, 1.5, 1.9,
+                       2.3, 2.4, 2.4, 2.4, 2.4, 2.5, 2.5, 2.9, 3.2, 3.6, 3.9])
 
 
-plt.errorbar(x, Hs, delta_Hs,
-             label='uplims=True, lolims=True', color='blue', ecolor='lightblue', elinewidth=3, capsize=0)
+plt.errorbar(x, Hsarg, delta_Hsarg,
+             label='uplims=True, lolims=True', color='blue', ecolor='lightblue', elinewidth=3, capsize=10)
 plt.xscale("log", base=10)
-plt.title("Filtro passa-basso misurato")
+plt.title("Fase Filtro passa-basso misurato")
 plt.show()
 
 # Filtro passa-alto reale
 x = np.array([2, 5, 9, 12, 15, 15.5, 15.7, 15.9, 16.1, 16.3,
              16.8, 19.8, 22.8, 26.8, 29.8, 50, 100, 1000]) * 1000
 
-v_in = np.array([816, 816, 808, 808, 808, 808, 808, 808, 808,
-                800, 800, 800, 800, 800, 792, 792, 792, 760])  # * 0.001
+Hsarg = np.array([82, 73, 61, 56, 48, 48, 48, 47, 48,
+                 46, 47, 40, 37, 33, 32, 22, 9, 0])
+delta_Hsarg = np.array([4, 5, 7, 8, 9, 5, 5, 5, 5, 5, 5, 6, 6, 6, 7, 8, 12, 77])
 
-delta_v_in = v_in * (1/20 + 0.03)
-
-v_out = np.array([93.6, 226, 376, 456, 520, 536, 536, 536, 536,
-                 544, 552, 584, 632, 664, 680, 736, 760, 760])  # * 0.001
-delta_v_out = v_out * (1/20 + 0.03)
-
-Hs = 20*np.log10(v_out/v_in)
-delta_Hs = np.abs(Hs * ((delta_v_out / v_out) + (delta_v_in / v_in)))
-
-print(delta_Hs)
+print(delta_Hsarg)
 
 
-plt.errorbar(x, Hs, delta_Hs,
-             label='uplims=True, lolims=True', color='blue', ecolor='lightblue', elinewidth=3, capsize=0)
+plt.errorbar(x, Hsarg, delta_Hsarg,
+             label='uplims=True, lolims=True', color='blue', ecolor='lightblue', elinewidth=3, capsize=10)
 plt.xscale("log", base=10)
-plt.title("Filtro passa-alto misurato")
+plt.title("faseFiltro passa-alto misurato")
 plt.show()

@@ -1,0 +1,200 @@
+/* styles.css */
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    padding: 1%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; /* Distribuisci gli elementi flessibili in modo uniforme */
+    align-items: center; /* Allinea verticalmente al centro */
+    border: 2px solid #333;
+    padding: 2%;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between; /* Distribuisci gli elementi flessibili in modo uniforme */
+}
+
+.main aside {
+    box-sizing: border-box;
+    flex: 2;
+    border: 2px solid #333;
+    padding: 2%;
+}
+
+.article-main {
+    box-sizing: border-box;
+    flex: 8;
+    border: 2px solid #333;
+    padding: 2%;
+}
+
+.main aside ul {
+    list-style: none;
+}
+
+article {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #333;
+}
+
+article .figure-big {
+    flex: 2;
+    margin: 1rem;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+article .article-content {
+    flex: 8;
+    margin: 1rem;
+}
+
+article .article-content .article-userinfo {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem;
+}
+
+article .article-content .article-userinfo .figure-profile {
+    display: flex;
+    justify-content: flex-start;
+}
+
+article .article-content .article-userinfo p{
+    margin: 0.2rem;
+}
+
+article .article-content .article-userinfo .figure-profile img{
+    margin: 0.2rem;
+}
+
+article .article-content .article-userinfo .figure-profile h3{
+    margin: 0.2rem;
+}
+
+
+article .article-content .article-userinfo figure img {
+    height: 10vh;
+    width: auto;
+}
+
+.figure-big img {
+    max-width: 100%; /* L'immagine non supererà mai la larghezza del suo contenitore */
+    height: auto; /* Mantiene il rapporto di aspetto originale dell'immagine */
+}
+
+article .article-content .article-description {
+    margin: 0.5rem;
+}
+
+.fixed-button {
+    position: fixed;
+    bottom: 20px; /* Distanza dal fondo */
+    right: 20px; /* Distanza dalla destra */
+    background-color: #007bff; /* Colore di sfondo del pulsante */
+    color: #fff; /* Colore del testo del pulsante */
+    padding: 12px 16px; /* Padding del pulsante (uguali per altezza e larghezza) */
+    border: none;
+    border-radius: 50%; /* Bordo arrotondato per rendere il pulsante rotondo */
+    cursor: pointer;
+    font-size: 20px; /* Dimensione del testo */
+    line-height: 1; /* Imposta l'altezza della linea su 1 per centrare verticalmente il testo */
+}
+
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .main aside {
+        width: 100%;
+        border: 0px solid #333;
+    }
+    
+    .article-main {
+        width: 100%;
+    }
+
+    .main aside ul {
+        list-style: none; /* Rimuove i punti elenco predefiniti */
+        display: flex; /* Usa il display flex per allineare gli elementi orizzontalmente */
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main aside ul li {
+        margin-right: 10px;
+    }
+
+    article .figure-big {
+        flex: 5;
+    }
+    
+    article .article-content {
+        flex: 5;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    nav ul {
+        display: none;
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .main aside {
+        width: 100%;
+        border: 0px solid #333;
+    }
+    
+    .article-main {
+        width: 100%;
+    }
+
+    .main aside ul {
+        list-style: none; /* Rimuove i punti elenco predefiniti */
+        display: flex; /* Usa il display flex per allineare gli elementi orizzontalmente */
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main aside ul li {
+        margin-right: 10px;
+    }
+
+    article {
+        display: flex;
+        flex-direction: column; /* Allinea gli elementi in una colonna */
+        align-items: center; /* Allinea orizzontalmente al centro */
+        justify-content: center; /* Allinea verticalmente al centro */
+    }
+    
+}
+
