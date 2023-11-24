@@ -25,7 +25,7 @@ int main() {
     
     int choice;
     do {
-        printf("Scelta: ");
+        printf("Scelta (1 ricerca, 2 ricerca per date, 3 ricerca max min per date, 4 ricerca max min assoluti, 5 bilanciamento): ");
         scanf("%d", &choice);
         if(choice == 1) {
             char cod [50+1];
@@ -49,7 +49,7 @@ int main() {
                 struct date_s date_to_search = DATEInit(year, month, day, 0, 0);
                 DailyQuote dailyQuote = StockSearchForDate(stock, date_to_search);
                 if(dailyQuote != NULL)
-                    printf("Trovato\n");
+                    printf("Trovato. Quotazione giornaliera: %f\n", dailyQuote->quote);
                 else
                     printf("Non trovato\n");
             }

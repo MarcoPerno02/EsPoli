@@ -15,6 +15,7 @@ invArray_t invArray_init() {
     
 }
 void invArray_free(invArray_t invArray) {
+    free(invArray->vettInv);
     free(invArray);
 }
 

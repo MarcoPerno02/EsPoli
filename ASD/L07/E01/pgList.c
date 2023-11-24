@@ -43,19 +43,26 @@ void pgList_print(FILE *fp, pgList_t pgList, invArray_t invArray) {
 
 /* inserimento di un nuovo personaggio */
 void pgList_insert(pgList_t pgList, pg_t pg) {
-    nodoPg_t node = malloc(sizeof(struct nodoPg_s));
-    node->pg = pg;
-    node->next = NULL;
-    if(pgList->nPg == 0){
-        pgList->headPg = node;
-        pgList->tailPg = node;
+    pg_t * ris = pgList_searchByCode(pgList, pg.cod);
+    if(ris == NULL) {
+        nodoPg_t node = malloc(sizeof(struct nodoPg_s));
+        node->pg = pg;
+        node->next = NULL;
+        if(pgList->nPg == 0){
+            pgList->headPg = node;
+            pgList->tailPg = node;
+        }
+        else {
+            nodoPg_t tail = pgList->tailPg;
+            tail->next = node;
+            pgList->tailPg = node;
+        }
+        pgList->nPg += 1;
     }
     else {
-        nodoPg_t tail = pgList->tailPg;
-        tail->next = node;
-        pgList->tailPg = node;
+        printf("Personaggio già esistente\n");
     }
-    pgList->nPg += 1;
+    
 }
 
 /* cancellazione con rimozione */
@@ -86,7 +93,7 @@ void pgList_remove(pgList_t pgList, char* cod) {
 pg_t *pgList_searchByCode(pgList_t pgList, char* cod) {
     nodoPg_t node = pgList->headPg;
     int found = 0;
-    while(node != NULL && found == 0){
+    while(node != NULL && found == 0 && pgList->nPg != 0){
         if(strcmp(node->pg.cod, cod) == 0) {
             found = 1;
         }

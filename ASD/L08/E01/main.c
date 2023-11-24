@@ -64,32 +64,9 @@ int main() {
     for(int i = 0; i < N_elems; i++) {
         elems_diff[i] = elems_app[i];
     }
-    /*
-    int i = 0;
-    while(check_diag_1_opt == 0 && i != 2) {
-        if(i == 0) {
-            int j = 0;
-            while(j != N_elems && (elems_app[j].type != 0 || elems_app[j].dir_enter != 1 || elems_app[j].dir_exit != 0) ) {
-                j++;
-            }
-            if(j == N_elems) {
-                check_diag_1_opt = 2;
-            }
-        }
-        else {
-            int j = 0;
-            while(j!=N_elems && (elems_app[j].type != 0 || elems_app[j].dir_enter != 0 || elems_app[j].dir_exit != 1)) {
-                j++;
-            }
-            if(j == N_elems) {
-                check_diag_1_opt = 1;
-            }
-        }
-        i++;
-    }
-    */
     bubblesort_asc_diff(elems_diff, N_elems);
     buildSolution(elems_app, elems_diff, N_elems);
+    free(elems_diff);
     free(elems_app);
 }
 
@@ -166,7 +143,6 @@ void buildSolution(Elem * elems_app, Elem * elems_diff, int N_elems) {
             free(diag_to_add);
         }
         calculateScore(&sequence_max);
-        printf("Score tot: %f\n", sequence_max.score_tot);
         printSequence(&sequence_max, 1);
     }
 }

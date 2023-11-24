@@ -1,0 +1,104 @@
+/* styles.css */
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    padding: 1%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; /* Distribuisci gli elementi flessibili in modo uniforme */
+    align-items: center; /* Allinea verticalmente al centro */
+    border: 2px solid #333;
+    padding: 2%;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 10px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between; /* Distribuisci gli elementi flessibili in modo uniforme */
+}
+
+.main aside {
+    flex: 30%;
+    border: 2px solid #333;
+    padding: 2%;
+}
+
+.article-main {
+    flex: 70%;
+    border: 2px solid #333;
+    padding: 2%;
+}
+
+.main aside ul {
+    list-style: none;
+}
+
+article {
+    display: flex;
+    justify-content: space-between;
+}
+
+article figure {
+    flex: 20%;
+    margin: 0.5rem;
+    border: 2px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+article .article-content {
+    flex: 80%;
+    margin: 0.5rem;
+    border-bottom: 2px solid #333;
+}
+
+article .article-content .article-userinfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+article .article-content .article-userinfo .figure-profile {
+    display: flex;
+    justify-content: flex-start; /* Allinea gli elementi a sinistra */
+}
+
+article .article-content .article-userinfo .figure-profile img{
+    margin: 0.1rem;
+}
+
+
+article .article-content .article-userinfo figure img {
+    height: 10vh;
+    width: auto;
+}
+
+.figure-big img {
+    max-width: 100%; /* L'immagine non supererà mai la larghezza del suo contenitore */
+    height: auto; /* Mantiene il rapporto di aspetto originale dell'immagine */
+}
+
+@media screen and (max-width: 800px) {
+    article figure {
+        flex: 40%;
+    }
+
+    article .article-content {
+        flex: 60%;
+    }
+}

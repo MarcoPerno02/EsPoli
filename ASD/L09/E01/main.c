@@ -4,8 +4,21 @@
 
 int main() {
     FILE *fin;
-    fin = fopen("grafo1.txt", "r");
+    fin = fopen("grafo4.txt", "r");
     if(fin == NULL) exit(-1);
     Graph g = GRAPHLoad(fin);
-
+    fclose(fin);
+    Edge ** edges_array;
+    int N, N_edges_deleted;
+    GRAPHReturnPossibleDag(g, &edges_array, &N, &N_edges_deleted);
+    if(edges_array != NULL) {
+        int id = GRAPHPrintDagThatDontHaveMaxWeight(g, edges_array, N, N_edges_deleted);
+        //printf("%d\n", id);
+        GRAPHspBF(g, edges_array[id], N_edges_deleted);
+        GRAPHFreeEdgesArray(edges_array, N);
+    }
+    else {
+        printf("Il grafo originale era già un dag\n");
+    }
+    GRAPHfree(g);
 }

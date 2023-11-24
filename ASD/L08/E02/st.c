@@ -14,7 +14,7 @@ ST STinit()
 {
     ST st = malloc(sizeof(struct symboltable));
     st->M = 1;
-    st->vet = malloc(st->M * sizeof(char **));
+    st->vet = malloc(st->M * sizeof(char *));
     st->N = 0;
     return st;
 }

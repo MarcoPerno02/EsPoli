@@ -1,0 +1,144 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #eaeaea;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background: linear-gradient(to bottom, #374461, #73628a);
+    min-height: 100%; /* Assicura che il body abbia almeno l'altezza del viewport */
+    background-attachment: fixed;
+  }
+  
+
+  
+  
+
+.myBackground {
+    height: 100vh   ;
+    padding: 2%;
+    margin-bottom: 2%;
+}
+
+.post {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    border-radius: 10px;
+    height: 80vh;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.40);
+    background: rgba(24, 54, 66, 0.4);
+    padding: 2%;
+    /*backdrop-filter: blur(1rem);*/
+}
+
+.postImgContainer {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.postUserImg {
+    overflow: hidden; /* Assicura che l'arrotondamento funzioni correttamente */
+}
+
+.postUserImg img {
+    border-radius: 50%;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.postUsernameInfo {
+    margin-bottom: 1.5%;
+
+}
+
+#postUsername {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.postDescriptionContainer {
+    margin-top: 1.5%;
+}
+
+.postDescriptionTitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-size: 1rem;
+}
+
+.postDescription {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.scroll-box {
+    height: 10rem; /* Altezza fissa del box */
+    overflow-y: scroll; /* Abilita lo scrolling verticale */
+    border: 1px solid #cbc5ea;
+    border-radius: 10px;
+    background: #374461;
+}
+::-webkit-scrollbar {
+    width: 0.1px;
+    height: 12px;
+    }
+
+::-webkit-scrollbar-track {
+    border: 1px solid #374461;
+    border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+    background: #374461;  
+    border-radius: 10px;
+    }
+
+.content {
+    padding: 10px; /* Padding interno per i contenuti */
+}
+
+.box {
+    margin-bottom: 10px; /* Aggiungi margine inferiore tra i div */
+    padding: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+    .postImgContainer {
+        padding: 0px;
+        padding-top: 2%;
+        padding-bottom: 2%;
+    }
+
+    .myBackground { 
+        min-height: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .postDescriptionTitle {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 200;
+        font-size: 0.8rem;
+    }
+
+    .postDescription {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        font-size: 0.8rem;
+    }
+}
+

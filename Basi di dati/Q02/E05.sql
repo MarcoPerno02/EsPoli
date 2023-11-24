@@ -1,0 +1,10 @@
+E = sigma(citta <> 'Bardonecchia')
+D = Recensione1
+F = NATURALJOIN
+B = Recensione2
+C = PI(Recensione1.CodFiscale)
+G = Pi(Recensione2.CodFiscale)
+H = -
+A = CLIENTE
+I = NATURALJOIN
+L = PI(Cognome, CittaResidenza)

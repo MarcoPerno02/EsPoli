@@ -46,14 +46,15 @@ void equipArray_update(equipArray_t equipArray, invArray_t invArray) {
     }
     else {
         int i = 0;
-        while(i < 8 && equipArray->vettEq[i] != index)
+        while(i < equipArray->inUso && equipArray->vettEq[i] != index)
             i++;
-        while(i != 7) {
-            equipArray->vettEq[i] = equipArray->vettEq[i+1];
-            i++;
+        if(equipArray->inUso != i) {
+            while(i != equipArray->inUso) {
+                equipArray->vettEq[i] = equipArray->vettEq[i+1];
+                i++;
+            }
+            equipArray->inUso -= 1;
         }
-        equipArray->inUso -= 1;
-
     }
 }
 /* torna indice (nel vettore inventario) dell'oggetto in posizione index (0..EQUIP_SLOT-1) di equipArray */

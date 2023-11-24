@@ -2,8 +2,8 @@ Circuit: * aaa
 
 Direct Newton iteration for .op point succeeded.
 
-Date: Wed Jan 04 17:22:26 2023
-Total elapsed time: 0.015 seconds.
+Date: Fri Jan 20 11:11:39 2023
+Total elapsed time: 0.004 seconds.
 
 tnom = 27
 temp = 27
