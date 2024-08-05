@@ -18,11 +18,8 @@ html, body {
   }
   
 
-  
-  
-
 .myBackground {
-    height: 100vh   ;
+    height: 100vh  ;
     padding: 2%;
     margin-bottom: 2%;
 }
@@ -112,8 +109,31 @@ p {
 }
 
 .box {
+    box-sizing: border-box;
     margin-bottom: 10px; /* Aggiungi margine inferiore tra i div */
     padding: 10px;
+}
+
+.commentUserImg {
+    overflow: hidden; /* Assicura che l'arrotondamento funzioni correttamente */
+}
+
+.commentUserImg img {
+    border-radius: 50%;
+}
+
+.commentTextContainer {
+    /*border-left: 1px solid #eaeaea;*/
+}
+
+.commentText {
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.commentUsername {
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 1200px) {

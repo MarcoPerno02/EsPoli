@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduzione alle applicazioni web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/utils.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/post.css') }}">
+        
+</head>
+
+
+<body>
+    
+    <div class="container-fluid">
+        {% include 'navbar.html' %}
+        <div class="row myBackground">
+            <div class="col-12 col-xl-2"></div>
+            <div class="col-12 col-xl-8 align-items-center p-xl-5" >
+                <div class="post h-100">
+                    <div class="container-fluid" style="max-height: 100%;">
+                        <div class="row">
+                            <div class="d-block d-xl-none col-1"></div>
+                            <div class="col-10 col-xl-5 d-flex align-items-center justify-content-center">    
+                                <div class="postImgContainer">
+                                    <img src="{{ url_for('static', filename=post.filenameImg  ) }}" class="img-fluid rounded mx-auto d-block postImg" alt="">
+                                </div>
+                            </div>
+                            <div class="d-block d-xl-none col-1"></div>
+                            <div class="col-12 col-xl-7" style="max-height: 100%;">
+                                <div class="container-fluid">
+                                    <div class="row postUsernameInfo">
+                                        <div class="col-2 col-sm-1 col-xl-2 postUserImg">
+                                            <img src="{{ url_for('static', filename=post.filenameUserImg  ) }}" class="img-fluid"
+                                                 alt="">
+                                        </div>
+                                        <div class="col-10 col-sm-11 col-xl-10 d-flex align-items-center">
+                                            <p id="postUsername">{{post['username'] |e}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row postDescriptionContainer">
+                                        <div class="col-12 postDescriptionTitle">
+                                            Description:
+                                        </div>
+                                        <div class="col-12 postDescription">
+                                            {{post['description'] |e}}
+                                        </div>
+                                        <div class="col-12 p-2 d-flex align-items-center">
+                                            <span class="material-symbols-outlined p-2">
+                                                favorite
+                                            </span>
+                                            <span>10 Like</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div style="border: 1px solid white;"></div>
+                                        </div>
+                                        <div class="col-12 p-2">
+                                            Commenti:
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="container-fluid p-0">
+                                                <div class="scroll-box">
+                                                    <div class="content">
+                                                        <!-- Il tuo contenuto div va qui -->
+                                                        <div class="box">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-1 p-0">
+                                                                        <div class="container-fluid p-0">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <div class="commentUserImg">
+                                                                                        <img src="{{ url_for('static', filename='img1.jpg' ) }}" class="img-fluid" alt="">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-11 commentTextContainer">
+                                                                        <div class="col-12 p-0 commentUsername">
+                                                                                user2
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <p class="commentText">
+                                                                                I HATE NIGGERSSSSSS #fanculoIGay
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="box">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-1 p-0">
+                                                                        <div class="container-fluid p-0">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <div class="commentUserImg">
+                                                                                        <img src="{{ url_for('static', filename='img1.jpg' ) }}" class="img-fluid" alt="">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-11 commentTextContainer">
+                                                                        <div class="col-12 p-0 commentUsername">
+                                                                                user2
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <p class="commentText">
+                                                                                I HATE NIGGERSSSSSS #fanculoIGay
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="box">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-1 p-0">
+                                                                        <div class="container-fluid p-0">
+                                                                            <div class="row">
+                                                                                <div class="col-12">
+                                                                                    <div class="commentUserImg">
+                                                                                        <img src="{{ url_for('static', filename='img1.jpg' ) }}" class="img-fluid" alt="">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-11 commentTextContainer">
+                                                                        <div class="col-12 p-0 commentUsername">
+                                                                                user2
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <p class="commentText">
+                                                                                I HATE NIGGERSSSSSS #fanculoIGay
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Aggiungi altri div secondo necessità -->
+                                                    </div>
+                                                </div>
+                                                <!--<div class="row">
+                                                    <div class="col-2">
+                                                        <img src="{{ url_for('static', filename='img1.jpg' ) }}" class="img-fluid rounded mx-auto d-block" alt="">
+                                                    </div>
+                                                    <div class="col-10">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                        eiusmod
+                                                    </div>
+                                                </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-2"></div>
+        </div>
+    </div>
+</body>
+</html>

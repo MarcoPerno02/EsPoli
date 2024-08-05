@@ -1,0 +1,43 @@
+Si vuole gestire un sito web per una dieta.
+Nella pagina food.html vengono chiesti diversi cibi.
+Nella pagina company.html vengono inseriti i vari marchi.
+
+Ognuno dei cibi ha:
+- nome (almeno 3 caratteri, di default 'food')
+- kcal (campo numerico che indica la kcal dell'alimento maggiore di 0, default 50)
+- per 100g (è una select con option 'si' e 'no', default 'si')
+- marchio (stringa che indica il marchio del prodotto, il marchio deve esistere tra i marchi inseriti)
+
+Ci dovrà essere un bottone 'Salva' che va ad inserire l'alimento in unta tabella,
+se l'alimento inserito rispetta tutti i parametri.
+
+Se c'è uno o più errori vanno segnalati in un opportuno div che conterrà tutti 
+gli errori riscontrati e inoltre va cambiato il colore del testo dell'/degli input non corretto/i.
+Gli input non hanno nessuna classe css associata se non presentano errori.
+
+Non è richiesto nessun salvataggio.
+
+Ognuno dei marchi ha:
+- nome (almeno 5 caratteri, default 'company', e i nomi sono univoci)
+- numeroDipendenti (almeno 50, default 50)
+- sede (stringa che indica la città di sede, default 'Alba') OPZIONALE Controllare esistenza sede
+
+Ci dovrà essere un bottone 'Salva' che va ad inserire l'azienda in unta tabella,
+se l'azienda inserito rispetta tutti i parametri.
+
+Se c'è uno o più errori vanno segnalati in un opportuno div che conterrà tutti 
+gli errori riscontrati e inoltre va cambiato il colore del testo dell'/degli input non corretto/i.
+Gli input non hanno nessuna classe css associata se non presentano errori.
+
+OPZIONALE
+Ognuna delle sedi ha:
+- nome (almeno 5 caratteri, default 'Alba', e i nomi sono univoci)
+
+Ci dovrà essere un bottone 'Salva' che va ad inserire la sede in unta tabella,
+se la sede inserito rispetta tutti i parametri.
+
+Se c'è uno o più errori vanno segnalati in un opportuno div che conterrà tutti 
+gli errori riscontrati e inoltre va cambiato il colore del testo dell'/degli input non corretto/i.
+Gli input non hanno nessuna classe css associata se non presentano errori.
+
+Il salvataggio avviene nella sessionStorage

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>food</title>
+    <!--Collegamenti ai font di google-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!--Aggiungere collegamenti js e css-->
+    <script src="../scripts/food.js"></script>
+    <link rel="stylesheet" href="../styles/food.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <h1>food</h1>
+        </div>
+        <div class="row">
+            <!--Aggiungere campi-->
+            <div class="col-3">
+                <label for="cibo">Nome:</label>
+                <input type="text" name="cibo" id="nomeInput" value="food" minlength="3">
+            </div>
+            <div class="col-3">
+                <label for="kcal">Kcal:</label>
+                <input type="number" name="kcal" id="kcalInput" value="50" min="0">
+            </div>
+            <div class="col-3">
+                <label for="100g">per 100g</label>
+                <select name="100g" id="100gInput">
+                    <option value="si" selected>Sì</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label for="nomeAzienda">Nome azienda:</label>
+                <input type="text" name="nomeAzienda" id="nomeAziendaInput" value="lugufullu" minlength="0">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1"><button class="btn btn-primary" onclick="salva()">Salva</button></div>
+            <div class="col-11">
+                <div id="messaggioErrore"></div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table" >
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Kcal</th>
+                            <th scope="col">per 100g</th>
+                            <th scope="col">Nome azienda</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTableBodyId">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
