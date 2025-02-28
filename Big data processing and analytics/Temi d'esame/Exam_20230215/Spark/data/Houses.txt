@@ -1,0 +1,10 @@
+H3402,Turin,Italy,1965
+H5821,Paris,France,1978
+H1290,Berlin,Germany,1990
+H8765,London,UK,2005
+H4321,Madrid,Spain,1983
+H7654,Rome,Italy,1970
+H9087,Amsterdam,Netherlands,2015
+H2345,New York,USA,1988
+H6789,Sydney,Australia,2000
+H3456,Tokyo,Japan,1995

@@ -1,0 +1,12 @@
+House101,New York,USA,150
+House102,Turin,Italy,120
+House103,Paris,France,80
+House104,Tokyo,Japan,100
+House105,Berlin,Germany,90
+House106,Sydney,Australia,200
+House107,London,UK,110
+House108,New York,USA,180
+House109,Madrid,Spain,130
+House110,Amsterdam,Netherlands,140
+House111,Los Angeles,USA,170
+House112,Los Angeles,USA,170

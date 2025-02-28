@@ -1,0 +1,10 @@
+User01,John,Doe,New York,USA
+User02,Jane,Smith,London,UK
+User03,Paolo,Garza,Turin,Italy
+User04,Mei,Li,Beijing,China
+User05,Aisha,Khan,Lahore,Pakistan
+User06,Maria,Gonzalez,Mexico City,Mexico
+User07,Kofi,Mensah,Accra,Ghana
+User08,Anna,Ivanova,Moscow,Russia
+User09,Satoshi,Yamamoto,Tokyo,Japan
+User10,Carlos,Silva,Sao Paulo,Brazil

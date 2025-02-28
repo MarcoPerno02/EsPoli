@@ -1,0 +1,6 @@
+MID1034,Polito project kick-off,2023/02/07-20:40:00,90,User1000
+MID1035,Marketing Strategy,2023/03/15-10:00:00,60,User1001
+MID1036,Tech Sync,2023/04/01-15:30:00,45,User1002
+MID1037,Annual General Meeting,2023/05/10-09:00:00,120,User1003
+MID1038,Product Launch,2023/06/20-14:00:00,75,User1004
+MID1039,Polito project kick-off,2023/02/07-20:40:00,90,User1000

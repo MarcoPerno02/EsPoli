@@ -1,0 +1,5 @@
+P1,Television,Electronics
+P2,Refrigerator,Appliances
+P3,Laptop,Electronics
+P4,Sofa,Furniture
+P5,Microwave,Appliances

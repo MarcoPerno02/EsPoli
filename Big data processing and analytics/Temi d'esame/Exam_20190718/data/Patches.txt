@@ -1,0 +1,30 @@
+PID7000,2017/01/05,Windows 10,Security patch
+PID7001,2017/01/12,Windows 10,Bug fix
+PID7002,2017/01/20,Ubuntu 18.04,Performance update
+PID7003,2017/01/25,Windows 10,Kernel update
+PID7004,2017/02/10,Windows 10,Security patch
+PID7005,2017/02/15,Ubuntu 18.04,Bug fix
+PID7006,2017/02/20,Ubuntu 18.04,Kernel update
+PID7050,2017/02/10,Windows 10,Security patch2
+PID7007,2017/03/02,Windows 10,Driver update
+PID7008,2017/03/08,Ubuntu 18.04,Security patch
+PID7009,2017/03/15,Ubuntu 18.04,System optimization
+PID7010,2017/03/22,Ubuntu 18.04,Bug fix
+PID7011,2017/04/10,Windows 10,Security patch
+PID7012,2017/04/20,Ubuntu 18.04,Performance improvements
+PID7013,2017/05/05,Windows 10,System stability fix
+PID7014,2017/05/18,Ubuntu 18.04,Kernel patch
+PID7015,2017/06/12,Windows 10,Security patch
+PID7016,2017/06/25,Ubuntu 18.04,Bug fix
+PID7017,2017/07/08,Windows 10,System update
+PID7018,2017/07/19,Ubuntu 18.04,Security fix
+PID7019,2017/08/10,Windows 10,Performance improvements
+PID7020,2017/08/23,Ubuntu 18.04,Kernel update
+PID7021,2017/09/15,Windows 10,Security update
+PID7022,2017/09/27,Ubuntu 18.04,System patch
+PID7023,2017/10/10,Windows 10,Bug fix
+PID7024,2017/10/22,Ubuntu 18.04,Security update
+PID7025,2017/11/05,Windows 10,Driver update
+PID7026,2017/11/15,Ubuntu 18.04,System stability fix
+PID7027,2017/12/02,Windows 10,Security patch
+PID7028,2017/12/18,Ubuntu 18.04,Performance optimization

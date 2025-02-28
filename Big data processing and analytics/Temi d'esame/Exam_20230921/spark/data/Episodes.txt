@@ -1,0 +1,8 @@
+SID15,1,1,Pilot,1994/09/22
+SID15,1,2,The One with the Sonogram at the End,1994/09/29
+SID15,2,7,The One with the Blackout,1994/11/03
+SID20,1,1,Pilot,2005/03/24
+SID20,1,2,The Dundies,2005/09/22
+SID25,1,1,Winter is Coming,2011/04/17
+SID30,1,1,Chapter One: The Vanishing of Will Byers,2016/07/15
+SID35,1,1,No Más,2008/01/20

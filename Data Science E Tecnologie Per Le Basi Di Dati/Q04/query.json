@@ -1,0 +1,4 @@
+{ numberOfStations: 1, score: 1.5 },
+  { numberOfStations: 1, score: 1.4 },
+  { numberOfStations: 1, score: 1.2 },
+  { numberOfStations: 3, score: 1 }

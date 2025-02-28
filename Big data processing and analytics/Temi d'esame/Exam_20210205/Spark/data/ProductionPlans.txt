@@ -1,0 +1,5 @@
+PID1,Turin,Italy
+PID2,Munich,Germany
+PID3,Detroit,USA
+PID4,Tokyo,Japan
+PID5,Paris,France

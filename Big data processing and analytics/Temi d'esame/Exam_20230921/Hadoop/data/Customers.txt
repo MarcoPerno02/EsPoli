@@ -1,0 +1,5 @@
+CID10,John,Bianco,Turin,Italy
+CID20,Emma,Smith,New York,USA
+CID30,James,Johnson,London,UK
+CID40,Linda,Martinez,Madrid,Spain
+CID50,Robert,Garcia,Paris,France

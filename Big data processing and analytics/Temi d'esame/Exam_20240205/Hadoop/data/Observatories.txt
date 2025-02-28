@@ -1,0 +1,6 @@
+OB101,Keck Observatory,19.8283,-155.4783,USA,North America,True
+OB202,Galileo Observatory,41.9028,12.4964,Italy,Europe,False
+OB303,Amateur Skywatchers,35.6895,139.6917,Japan,Asia,True
+OB404,Cerro Paranal,24.6272,-70.4042,Chile,South America,False
+OB505,Sydney Observatory,-33.8675,151.2070,Australia,Oceania,False
+OB606,Trump Observatory,17.8283,-155.4783,USA,North America,True

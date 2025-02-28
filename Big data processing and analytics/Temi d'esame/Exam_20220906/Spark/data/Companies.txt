@@ -1,0 +1,10 @@
+C12,Databricks,United States of America
+C13,Google,United States of America
+C14,Microsoft,United States of America
+C15,Amazon,United States of America
+C16,Alibaba,China
+C17,Facebook,United States of America
+C18,Twitter,United States of America
+C19,Apple,United States of America
+C20,Oracle,United States of America
+C21,IBM,United States of America

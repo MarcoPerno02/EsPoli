@@ -1,0 +1,10 @@
+House102,Turin,Italy,120
+House205,Paris,France,85
+House308,Berlin,Germany,95
+House410,London,UK,110
+House512,Madrid,Spain,75
+House614,Rome,Italy,130
+House716,Amsterdam,Netherlands,100
+House818,New York,USA,140
+House920,Sydney,Australia,125
+House1022,Tokyo,Japan,50

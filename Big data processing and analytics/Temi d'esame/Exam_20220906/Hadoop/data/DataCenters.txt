@@ -1,0 +1,10 @@
+DC21,C12,Nice,France,Europe
+DC22,C13,Mountain View,USA,North America
+DC23,C14,Redmond,USA,North America
+DC24,C15,Seattle,USA,North America
+DC25,C16,Hangzhou,China,Asia
+DC26,C17,Menlo Park,USA,North America
+DC27,C18,San Francisco,USA,North America
+DC28,C19,Cupertino,USA,North America
+DC29,C20,Redwood City,USA,North America
+DC30,C21,Armonk,USA,North America

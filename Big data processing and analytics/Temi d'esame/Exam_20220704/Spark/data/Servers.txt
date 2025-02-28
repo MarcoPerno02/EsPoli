@@ -1,0 +1,6 @@
+S10,Ubuntu6,SunUltraServer1
+S11,Windows10,DellPowerEdge
+S12,Ubuntu6,HPProLiant
+S13,RedHat8,IBMSystemX
+S14,Windows10,DellPowerEdge
+S15,Windows10,HPProLiant

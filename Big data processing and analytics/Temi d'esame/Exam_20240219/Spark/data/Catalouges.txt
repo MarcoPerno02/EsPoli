@@ -1,0 +1,8 @@
+Item123,SmartphoneX,Electronics,True
+Item234,LaptopY,Electronics,False
+Item345,BlenderZ,HomeAppliances,True
+Item456,T-ShirtBlue,Clothing,True
+Item567,RunningShoes,Clothing,False
+Item678,BookABC,Books,True
+Item789,GameConsole,Electronics,True
+Item890,SmartWatch,Electronics,True
